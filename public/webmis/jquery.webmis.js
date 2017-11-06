@@ -79,6 +79,10 @@ $(function(){
 			$.webmis.close('');
 			// 添加内容
 			$('body').prepend(html);
+			// 动画
+			$('.webmis_win_bg').fadeIn();
+			$('.webmis_win').fadeToggle(300);
+			// 调整窗口
 			winSize();
 			//ESC键关闭
 			$(document).keydown(function(e){
