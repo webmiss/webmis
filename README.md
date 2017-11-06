@@ -17,7 +17,7 @@ Require all granted
 Options Indexes FollowSymLinks
 ```
 
-### 1) Nginx
+### 2) Nginx
 ```bash
 listen 80;
 server_name mvc.webmis.cn;
