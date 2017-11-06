@@ -1,0 +1,1 @@
+<iframe src="<?php echo $_SERVER["PHP_SELF"]; ?>" style="border: none; width: 100%; height: 92%;"></iframe>
