@@ -14,7 +14,7 @@
 	</tr>
 	<td>&nbsp;</td>
 		<td class="sub">
-			<input type="submit" name="search" value="搜索" class="webmis_bottom" />
+			<label class="webmis_bottom">搜索<input type="submit" name="search" value="" class="noDisplay" /></label>
 		</td>
 	</tr>
 </table>

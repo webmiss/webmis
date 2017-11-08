@@ -25,7 +25,7 @@
 	<tr>
 		<td>&nbsp;</td>
 		<td class="sub">
-			<input type="submit" value="添加" class="webmis_bottom" />
+			<label class="webmis_bottom">添加<input type="submit" class="noDisplay" /></label>
 		</td>
 	</tr>
 </table>

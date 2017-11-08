@@ -55,7 +55,7 @@
 	<tr>
 		<td>&nbsp;</td>
 		<td class="sub">
-			<input type="submit" value="编辑" class="webmis_bottom" />
+			<label class="webmis_bottom">编辑<input type="submit" class="noDisplay" /></label>
 			<input type="hidden" name="id" value="<?php echo $edit->id;?>" />
 		</td>
 	</tr>

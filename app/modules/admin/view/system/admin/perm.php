@@ -15,5 +15,5 @@
 echo $permHtml;
 ?>
 <div class="perm_an">
-	<input type="submit" id="editPerm" value="编辑权限" class="webmis_bottom" />
+	<label class="webmis_bottom">编辑权限<input type="submit" id="editPerm" class="noDisplay" /></label>
 </div>

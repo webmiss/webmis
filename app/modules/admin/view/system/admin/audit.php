@@ -11,7 +11,7 @@
 	</tr>
 	<tr>
 		<td class="sub center" colspan="2">
-			<input type="submit" value="确认" class="webmis_bottom" />
+			<label class="webmis_bottom">确认<input type="submit" class="noDisplay" /></label>
 			<input type="hidden" id="DelID" name="id" value="" />
 		</td>
 	</tr>

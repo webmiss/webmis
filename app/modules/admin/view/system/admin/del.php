@@ -2,7 +2,7 @@
 <table class="table_add">
 	<tr>
 		<td class="center sub">
-			<br/><input type="submit" value="彻底删除" class="webmis_bottom" />
+			<br/><label class="webmis_bottom">彻底删除<input type="submit" class="noDisplay" /></label>
 			<input type="hidden" id="DelID" name="id" value="" />
 		</td>
 	</tr>

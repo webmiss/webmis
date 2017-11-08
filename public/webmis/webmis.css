@@ -41,7 +41,7 @@ em{color: #6FB737; font-family: 'iconfont'; font-style: normal; font-size: 16px;
 .webmis_odd_bg3{background: #E2ECF7;}
 
 /* 按钮样式 */
-.webmis_bottom{cursor: pointer; height: 34px; font-size: 14px; padding: 0 30px; border-radius: 3px; box-shadow: 1px 1px 3px #BBB; color: #FFF;
+.webmis_bottom{cursor: pointer; display: inline-block; height: 34px; line-height: 34px; font-size: 14px; padding: 0 30px; border-radius: 3px; box-shadow: 1px 1px 3px #BBB; color: #FFF;
 	border: #3F9707 1px solid; background: #6FB737;
 }
 .webmis_bottom:hover{border: #FF0000 1px solid; background: #FF6600;}
