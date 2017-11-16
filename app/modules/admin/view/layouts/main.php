@@ -4,7 +4,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="author" content="WebMIS" />
 	<title>管理员控制台</title>
-	<link rel="icon" type="image/png" href="favicon.png" sizes="32x32" />
+	<link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<meta name="format-detection" content="telephone=no">
 	<meta name="msapplication-tap-highlight" content="no">

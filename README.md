@@ -26,8 +26,7 @@ set $root_path '/home/www/mvc/public/';
 root $root_path;
 index index.php index.html;
 
-try_files $uri $uri/ @rewrite;
-location @rewrite {
+location / {
     rewrite ^/(.*)$ /index.php?_url=/$1;
 }
 
