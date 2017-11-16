@@ -117,7 +117,7 @@ class Controller{
 		}
 		unset($like['search']);
 		// 传递搜索条件
-		$this->setVar('getUrl','?page='.$page.$getUrl);
+		$this->setVar('getUrl','?search&page='.$page.$getUrl);
 		// 返回数据
 		return array('getUrl'=>$getUrl,'data'=>$like);
 	}
