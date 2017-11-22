@@ -11,21 +11,21 @@
 		</td>
 	</tr>
 	<tr>
+		<td class="tright">原密码:</td>
+		<td>
+			<input type="password" name="passwd1" class="input" style="width: 70%;" rangelength="[6,16]" passwd="true" />
+		</td>
+	</tr>
+	<tr>
 		<td class="tright">新密码:</td>
 		<td>
-			<input type="password" name="passwd" class="input" style="width: 70%;" rangelength="[6,16]" passwd="true" />
+			<input type="password" id="passwd" name="passwd" class="input" style="width: 70%;" rangelength="[6,16]" passwd="true" />
 		</td>
 	</tr>
 	<tr>
-		<td class="tright">邮箱:</td>
+		<td class="tright">确认密码:</td>
 		<td>
-			<input type="text" name="email" value="<?php echo $edit->email;?>" class="input" style="width: 70%;" rangelength="[6,32]" email="true" required />
-		</td>
-	</tr>
-	<tr>
-		<td class="tright">手机号码:</td>
-		<td>
-			<input type="text" name="tel" value="<?php echo $edit->tel;?>" class="input" style="width: 70%;" tel="true" required />
+			<input type="password" class="input" style="width: 70%;" rangelength="[6,16]" equalto="#passwd" />
 		</td>
 	</tr>
 	<tr>

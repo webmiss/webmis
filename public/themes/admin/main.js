@@ -103,26 +103,6 @@ function formValidSub(obj) {
 		$app_url + 'plugin/jquery/jquery.validate.zh.js',
 		$app_url + 'plugin/jquery/jquery.form.min.js'
 	]});
-	// 用户名校验
-	$.validator.addMethod("uname", function(value, element){
-		var uname = /^[a-zA-Z][a-zA-Z0-9\_\@\-\*\&]{3,15}$/;
-		return this.optional(element) || uname.test(value);
-	}, "<em></em>英文开头4~16位字符");
-	// 邮箱
-	$.validator.addMethod("email", function(value, element){
-		var email =  /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-		return this.optional(element) || email.test(value);
-	}, "<em></em>请输入邮箱");
-	// 手机号码
-	$.validator.addMethod("tel", function(value, element){
-		var tel = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
-		return this.optional(element) || tel.test(value);
-	}, "<em></em>请输入手机号码");
-	// 密码校验
-	$.validator.addMethod("passwd", function(value, element){
-		var passwd = /^[a-zA-Z][a-zA-Z0-9\_\@\-\*\&]{5,15}$/;
-		return this.optional(element) || passwd.test(value);
-	}, "<em></em>英文开头6~16位字符");
 	// 校验
 	if(obj==null){obj='#Form';}
 	$(obj).validate({

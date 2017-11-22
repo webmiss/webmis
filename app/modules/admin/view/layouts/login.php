@@ -21,7 +21,7 @@
 		<div class="login_ct">
 			<dl class="login">
 				<dt>用户名：</dt>
-				<dd><input type="text" id="uname" class="login_input" placeholder="用户名/邮箱/手机号码" maxlength="16" value="<?php echo @$_COOKIE["uname"];?>" /></dd>
+				<dd><input type="text" id="uname" class="login_input" placeholder="用户名/邮箱/手机号码" maxlength="32" value="<?php echo isset($_COOKIE["uname"])?$_COOKIE["uname"]:'';?>" /></dd>
 				<dt>密码：</dt>
 				<dd><input type="password" id="passwd" class="login_input" placeholder="请输入密码" maxlength="32" /></dd>
 				<dt>验证码：</dt>

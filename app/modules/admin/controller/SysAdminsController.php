@@ -2,6 +2,8 @@
 
 namespace app\modules\admin\controller;
 
+use app\library\Safety;
+
 use app\modules\admin\model\SysAdmin;
 use app\modules\admin\model\SysMenu;
 use app\modules\admin\model\SysMenuAction;
@@ -27,7 +29,8 @@ class SysAdminsController extends ControllerBase{
 		$this->setVar('List',$this->page([
 			'model'=>'SysAdmin',
 			'where'=>$where,
-			'getUrl'=>$getUrl
+			'getUrl'=>$getUrl,
+			'order'=>'id desc'
 		]));
 
 		// 获取菜单
@@ -61,10 +64,22 @@ class SysAdminsController extends ControllerBase{
 				'position'=>trim($_POST['position']),
 				'rtime'=>date('Y-m-d H:i:s'),
 			];
+			// 验证
+			$res = Safety::isRight('uname',$data['uname']);
+			if($res!==true){echo json_encode(array('state'=>'n','msg'=>$res));return false;}
+			$res = Safety::isRight('passwd',$_POST['passwd']);
+			if($res!==true){echo json_encode(array('state'=>'n','msg'=>$res));return false;}
+			$res = Safety::isRight('email',$data['email']);
+			if($res!==true){echo json_encode(array('state'=>'n','msg'=>$res));return false;}
+			$res = Safety::isRight('tel',$data['tel']);
+			if($res!==true){echo json_encode(array('state'=>'n','msg'=>$res));return false;}
 			// 是否存在用户
-			$isNull =SysAdmin::findfirst(['where'=>'uname="'.$data['uname'].'"','field'=>'uname']);
+			$isNull =SysAdmin::findfirst([
+				'where'=>'uname="'.$data['uname'].'" OR tel="'.$data['tel'].'" OR email="'.$data['email'].'"',
+				'field'=>'id'
+			]);
 			if($isNull){
-				echo json_encode(array('state'=>'n','msg'=>'该用户名已经存在！'));
+				echo json_encode(array('state'=>'n','msg'=>'该用户已经存在！'));
 				return false;
 			}
 			// 返回信息
@@ -87,15 +102,25 @@ class SysAdminsController extends ControllerBase{
 		if($_POST){
 			// 采集数据
 			$data = [
-				'email'=>trim($_POST['email']),
-				'tel'=>trim($_POST['tel']),
 				'name'=>trim($_POST['name']),
 				'department'=>trim($_POST['department']),
 				'position'=>trim($_POST['position']),
 			];
 			// 是否修改密码
 			if(!empty($_POST['passwd'])){
-				$data['password'] = md5($_POST['passwd']);
+				$res = Safety::isRight('passwd',$_POST['passwd']);
+				if($res!==true){echo json_encode(array('state'=>'n','msg'=>$res));return false;}
+				// 原密码判断
+				$isNull =SysAdmin::findfirst([
+					'where'=>'id="'.$_POST['id'].'" AND password="'.md5($_POST['passwd1']).'"',
+					'field'=>'id'
+				]);
+				if($isNull){
+					$data['password'] = md5($_POST['passwd']);
+				}else{
+					echo json_encode(array('state'=>'n','msg'=>'原密码错误！'));
+					return false;
+				}
 			}
 			// 返回信息
 			if(SysAdmin::update($data,'id='.$_POST['id'])){
@@ -145,6 +170,26 @@ class SysAdminsController extends ControllerBase{
 				}
 			}
 			echo json_encode(array('state'=>'y','url'=>'SysAdmins','msg'=>'审核成功！'));
+		}
+	}
+
+	/* 是否存在 */
+	function isUnameAction(){
+		// 是否提交
+		if(!isset($_POST['name']) || !isset($_POST['val'])){return false;}
+		// 条件
+		$where = '';
+		if($_POST['name']=='uname'){
+			$where = 'uname="'.trim($_POST['val']).'"';
+		}elseif($_POST['name']=='tel'){
+			$where = 'tel="'.trim($_POST['val']).'"';
+		}elseif($_POST['name']=='email'){
+			$where = 'email="'.trim($_POST['val']).'"';
+		}
+		// 查询
+		if($where){
+			$data = SysAdmin::findfirst(['where'=>$where,'field'=>'id']);
+			echo $data?json_encode(['state'=>'y']):json_encode(['state'=>'n']);
 		}
 	}
 

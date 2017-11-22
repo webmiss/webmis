@@ -22,7 +22,6 @@ class IndexController extends Controller{
 			$password = md5($_POST['passwd']);
 			$vcode = strtolower($_POST['vcode']);
 			$remember = $_POST['remember'];
-
 			// 判断验证码
 			if($vcode != $_SESSION['V_CODE']){
 				echo json_encode(array('status'=>'v','msg'=>'验证码错误！'));
@@ -30,7 +29,6 @@ class IndexController extends Controller{
 			}else{
 				$_SESSION['V_CODE'] = rand(1000,9999);
 			}
-
 			// 查询用户
 			$info = [
 				'where'=>'(uname="'.$uname.'" or tel="'.$uname.'" or email="'.$uname.'") and password="'.$password.'"',
