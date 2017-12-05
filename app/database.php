@@ -6,4 +6,3 @@ return [
 	'db'=>'mvc',				// 数据库
 	'charset'=>'utf8'			// 编码
 ];
-?>

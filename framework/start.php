@@ -13,8 +13,9 @@
 
 // 框架: 命名空间和自动加载类
 spl_autoload_register(function($class){
-	$file = __DIR__.'/../'.$class.'.php';
-	require strtr($file,'\\',DIRECTORY_SEPARATOR);
+	$file = strtr(__DIR__.'/../'.$class.'.php','\\',DIRECTORY_SEPARATOR);
+	if(!is_file($file)){die('警告：该文件不存在！');}
+	require $file;
 });
 
 // 配置文件
@@ -27,7 +28,7 @@ if(isset($_GET['_url'])){
 }
 // 模块、控制器、函数
 $m = isset($arr[0])?$arr[0]:$config['default_module'];
-$c = isset($arr[1])?$arr[1]:$config['default_controller'];
+$c = isset($arr[1])?ucwords($arr[1]):$config['default_controller'];
 $a = isset($arr[2])?$arr[2]:$config['default_action'];
 
 // 常量
@@ -40,18 +41,16 @@ $c .= 'Controller';
 $a .= 'Action';
 
 // 控制器
-$c = '\\app\\modules\\'.$m.'\\controller\\'.ucwords($c);
+$c = '\\app\\modules\\'.$m.'\\controller\\'.$c;
 
 // 是否存在类
-if(!class_exists($c)){die('类不存在！');}
+if(!class_exists($c)){die(CONTROLLER.'：该类不存在！');}
 
 // 实例化
 $C = new $c();
 
 // 是否存在函数
-if(!method_exists($C,$a)){die('函数不存在！');}
+if(!method_exists($C,$a)){die(ACTION.'：该函数不存在！');}
 
 // 调用
 return $C->$a();
-
-?>

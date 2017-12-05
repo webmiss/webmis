@@ -8,4 +8,3 @@ class SysAdmin extends Model{
 	// 数据表
 	protected static $table = 'sys_admin';
 }
-?>

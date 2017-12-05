@@ -8,4 +8,3 @@ class SysMenu extends Model{
 	// 数据表
 	protected static $table = 'sys_menus';
 }
-?>
