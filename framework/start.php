@@ -12,8 +12,10 @@
 // echo (microtime(true) - $start)*1000;
 
 // 框架: 命名空间和自动加载类
-require APP.'../framework/Loader.php';
-spl_autoload_register('Loader::autoload');
+spl_autoload_register(function($class){
+	$file = __DIR__.'/../'.$class.'.php';
+	require strtr($file,'\\',DIRECTORY_SEPARATOR);
+});
 
 // 配置文件
 $config = require APP.'config.php';

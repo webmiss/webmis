@@ -9,6 +9,7 @@ class Model{
 
 	// 属性
 	static private $config;
+	static private $conn;
 
 	/* 构造函数 */
 	function __construct(){
@@ -114,13 +115,13 @@ class Model{
 		// 配置文件
 		self::$config = require APP.'database.php';
 		// 链接并打开数据库(永久链接)
-		$mysqli = new mysqli(self::$config['host'],self::$config['uname'],self::$config['passwd'],self::$config['db']);
+		self::$conn = new mysqli(self::$config['host'],self::$config['uname'],self::$config['passwd'],self::$config['db']);
 		// 链接错误
-		if(mysqli_connect_errno()){ die('错误:'.mysqli_connect_error()); }
+		if(self::$conn->connect_error){ die('错误('.self::$conn->connect_errno.'):'.self::$conn->connect_error); }
 		// 设置编码
-		$mysqli->set_charset(self::$config['charset']);
+		self::$conn->set_charset(self::$config['charset']);
 		// 执行SQL
-		$res = $mysqli->query($sql);
+		$res = self::$conn->query($sql);
 		// 结果
 		return $res;
 	}

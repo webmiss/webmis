@@ -48,7 +48,7 @@ class ControllerBase extends Controller{
 		// CID
 		$C = SysMenu::findfirst(['where'=>'url="'.CONTROLLER.'"','field'=>'id,fid,title']);
 		self::$cid[] = $C->id;
-		$fids = self::getCid($C->fid);
+		self::getCid($C->fid);
 		krsort(self::$cid);
 		self::$cid = array_values(self::$cid);
 		// 数据
