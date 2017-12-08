@@ -81,7 +81,7 @@ $(function(){
 			$('body').prepend(html);
 			// 动画
 			$('.webmis_win_bg').fadeIn();
-			$('.webmis_win').fadeToggle(300);
+			$('.webmis_win').animate({top:"50%"},200);
 			// 调整窗口
 			winSize();
 			//ESC键关闭
@@ -99,7 +99,10 @@ $(function(){
 		/* 关闭窗口 */
 		'close':function(url){
 			// 移除
-			$('.webmis_win_bg').remove();
+			$('.webmis_win_bg').fadeOut();
+			$('.webmis_win').animate({top:"40%"},200,'',function(){
+				$('.webmis_win_bg').remove();
+			});
 			// 跳转
 			if(url!=undefined && url!=''){
 				window.location.href = $base_url+url;
