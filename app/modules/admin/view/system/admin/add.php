@@ -1,4 +1,4 @@
-<form action="<?php echo $this->getUrl('SysAdmins/addData');?>" method="post" id="Form">
+<form action="<?php echo self::getUrl('SysAdmins/addData');?>" method="post" id="Form">
 <table class="table_add">
 	<tr>
 		<td class="tright" width="90"></td>

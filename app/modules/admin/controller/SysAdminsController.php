@@ -2,8 +2,8 @@
 
 namespace app\modules\admin\controller;
 
+use app\library\Page;
 use app\library\Safety;
-
 use app\modules\admin\model\SysAdmin;
 use app\modules\admin\model\SysMenu;
 use app\modules\admin\model\SysMenuAction;
@@ -13,7 +13,8 @@ class SysAdminsController extends ControllerBase{
 	function indexAction(){
 		// 分页
 		if(isset($_GET['search'])){
-			$like = $this->pageWhere();
+			$like = Page::where();
+			self::setVar('getUrl', $like['search']);
 			// 生成搜索条件
 			$where = '';
 			foreach ($like['data'] as $key => $val){
@@ -26,7 +27,7 @@ class SysAdminsController extends ControllerBase{
 			$getUrl = '';
 		}
 		// 数据
-		$this->setVar('List',$this->page([
+		self::setVar('List',Page::get([
 			'model'=>'SysAdmin',
 			'where'=>$where,
 			'getUrl'=>$getUrl,

@@ -6,7 +6,7 @@ use app\library\Inc;
 	<div class="actionM">
 		<div id="Menus">
 <?php foreach ($Menus['action'] as $val){
-	$url = $val['ico']=='ico-list'?$this->getUrl(CONTROLLER):'';
+	$url = $val['ico']=='ico-list'?self::getUrl(CONTROLLER):'';
 ?>
 			<a href="<?php echo $url;?>" id="<?php echo $val['ico'];?>"><em class="<?php echo $val['ico'];?>"></em><span><?php echo $val['name'];?></span></a>
 <?php }?>

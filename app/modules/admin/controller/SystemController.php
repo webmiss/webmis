@@ -6,9 +6,9 @@ class SystemController extends ControllerBase{
 	// 首页
 	function indexAction(){
 		// 获取菜单
-		$menus = $this->getMenus();
-		$this->setVar('Menus',$menus);
+		$menus = self::getMenus();
+		self::setVar('Menus',$menus);
 		// 视图
-		$this->setTemplate('main','system/index');
+		self::setTemplate('main','system/index');
 	}
 }

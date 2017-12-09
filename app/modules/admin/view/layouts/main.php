@@ -33,7 +33,7 @@ foreach($Menus['Data'] as $val){
 		$an = 'nav_an2';
 	}
 ?>
-			<li><a href="<?php echo $this->getUrl($val->url);?>" class="<?php echo $an;?>"><em class="<?php echo $val->ico;?>"></em><span><?php echo $val->title;?></span></a></li>
+			<li><a href="<?php echo self::getUrl($val->url);?>" class="<?php echo $an;?>"><em class="<?php echo $val->ico;?>"></em><span><?php echo $val->title;?></span></a></li>
 <?php }?>
 		</ul>
 		<div class="top_link">
@@ -47,7 +47,7 @@ foreach($Menus['Data'] as $val){
 						职务: <?php echo $Uinfo['position'];?>
 					</span>
 					<a href="" class="btop">修改密码</a>
-					<a href="<?php echo $this->getUrl('index/loginOut');?>" class="btop center">注销</a>
+					<a href="<?php echo self::getUrl('index/loginOut');?>" class="btop center">注销</a>
 				</span>
 			</span>
 		</div>
@@ -66,7 +66,7 @@ if(isset($val1->menus)){foreach ($val1->menus as $val2){
 	$ico = $val2->ico?'<em class="'.$val2->ico.'"></em>':'';
 	$an = isset($Menus['CID'][2])&&$val2->id==$Menus['CID'][2]?'left_an1':'left_an2';
 ?>
-				<li><a href="<?php echo $this->getUrl($val2->url);?>" class="<?php echo $an;?>"><?php echo $ico;?><span><?php echo $val2->title;?></span></a></li>
+				<li><a href="<?php echo self::getUrl($val2->url);?>" class="<?php echo $an;?>"><?php echo $ico;?><span><?php echo $val2->title;?></span></a></li>
 <?php }}?>
 			</ul>
 <?php }?>
@@ -78,7 +78,7 @@ if(isset($val1->menus)){foreach ($val1->menus as $val2){
 
 		</div>
 	</div>
-<div id="BaseURL" style="display: none;"><?php echo $this->getUrl();?></div>
+<div id="BaseURL" style="display: none;"><?php echo self::getUrl();?></div>
 <div id="GetUrl" style="display: none;"><?php echo @$getUrl;?></div>
 </body>
 </html>

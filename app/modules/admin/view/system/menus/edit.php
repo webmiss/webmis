@@ -1,4 +1,4 @@
-<form action="<?php echo $this->getUrl('SysMenus/editData');?>" method="post" id="Form">
+<form action="<?php echo self::getUrl('SysMenus/editData');?>" method="post" id="Form">
 <table class="table_add">
 	<tr>
 		<td class="tright" width="90"></td>

@@ -1,4 +1,4 @@
-<form action="<?php echo $this->getUrl('SysMenusAction/delData');?>" method="post" id="Form">
+<form action="<?php echo self::getUrl('SysMenusAction/delData');?>" method="post" id="Form">
 <table class="table_add">
 	<tr>
 		<td class="center sub">

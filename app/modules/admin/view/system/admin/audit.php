@@ -1,4 +1,4 @@
-<form action="<?php echo $this->getUrl('SysAdmins/auditData');?>" method="post" id="Form">
+<form action="<?php echo self::getUrl('SysAdmins/auditData');?>" method="post" id="Form">
 <table class="table_add">
 	<tr>
 		<td class="tright" width="80">状态:</td>

@@ -1,1 +1,1 @@
-<?php echo $this->getUrl();?>
+<?php echo self::getUrl();?>

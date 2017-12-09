@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controller;
 
+use app\library\Page;
 use app\modules\admin\model\SysMenu;
 use app\modules\admin\model\SysMenuAction;
 
@@ -10,7 +11,8 @@ class SysMenusController extends ControllerBase{
 	function indexAction(){
 		// 分页
 		if(isset($_GET['search'])){
-			$like = $this->pageWhere();
+			$like = Page::where();
+			self::setVar('getUrl', $like['search']);
 			// 生成搜索条件
 			$where = '';
 			foreach ($like['data'] as $key => $val){
@@ -23,30 +25,30 @@ class SysMenusController extends ControllerBase{
 			$getUrl = '';
 		}
 		// 数据
-		$this->setVar('List',$this->page([
+		self::setVar('List',Page::get([
 			'model'=>'SysMenu',
 			'where'=>$where,
 			'getUrl'=>$getUrl
 		]));
 		
 		// 获取菜单
-		$this->setVar('Menus',$this->getMenus());
+		self::setVar('Menus',self::getMenus());
 
 		// 传递参数
-		$this->setVar('LoadJS', array('system/sys_menus.js'));
-		$this->setTemplate('main','system/menus/index');
+		self::setVar('LoadJS', array('system/sys_menus.js'));
+		self::setTemplate('main','system/menus/index');
 	}
 
 	/* 搜索 */
 	function searchAction(){
-		$this->view('system/menus/sea');
+		self::view('system/menus/sea');
 	}
 
 	/* 添加 */
 	function addAction(){
 		// 所有权限
-		$this->setVar('perm',SysMenuAction::find(['field'=>'name,perm']));
-		$this->view('system/menus/add');
+		self::setVar('perm',SysMenuAction::find(['field'=>'name,perm']));
+		self::view('system/menus/add');
 	}
 	function addDataAction(){
 		// 是否有数据提交
@@ -73,10 +75,10 @@ class SysMenusController extends ControllerBase{
 	/* 编辑 */
 	function editAction(){
 		// 所有权限
-		$this->setVar('perm',SysMenuAction::find(['field'=>'name,perm']));
+		self::setVar('perm',SysMenuAction::find(['field'=>'name,perm']));
 		// 视图
-		$this->setVar('edit',SysMenu::findfirst(['where'=>'id='.$_POST['id']]));
-		$this->view('system/menus/edit');
+		self::setVar('edit',SysMenu::findfirst(['where'=>'id='.$_POST['id']]));
+		self::view('system/menus/edit');
 	}
 	function editDataAction(){
 		// 是否有数据提交
@@ -102,7 +104,7 @@ class SysMenusController extends ControllerBase{
 
 	/* 删除 */
 	function delAction(){
-		$this->view('system/menus/del');
+		self::view('system/menus/del');
 	}
 	function delDataAction(){
 		// 是否有数据提交

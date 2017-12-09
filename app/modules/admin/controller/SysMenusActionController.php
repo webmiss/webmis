@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controller;
 
+use app\library\Page;
 use app\modules\admin\model\SysMenuAction;
 
 class SysMenusActionController extends ControllerBase{
@@ -9,7 +10,8 @@ class SysMenusActionController extends ControllerBase{
 	function indexAction(){
 		// 分页
 		if(isset($_GET['search'])){
-			$like = $this->pageWhere();
+			$like = Page::where();
+			self::setVar('getUrl', $like['search']);
 			// 生成搜索条件
 			$where = '';
 			foreach ($like['data'] as $key => $val){
@@ -22,26 +24,26 @@ class SysMenusActionController extends ControllerBase{
 			$getUrl = '';
 		}
 		// 数据
-		$this->setVar('List',$this->page([
+		self::setVar('List',Page::get([
 			'model'=>'SysMenuAction',
 			'where'=>$where,
 			'getUrl'=>$getUrl
 		]));
 
 		// 获取菜单
-		$this->setVar('Menus',$this->getMenus());
+		self::setVar('Menus',self::getMenus());
 
 		// 传递参数
-		$this->setVar('LoadJS', array('system/sys_menus_action.js'));
-		$this->setTemplate('main','system/action/index');
+		self::setVar('LoadJS', array('system/sys_menus_action.js'));
+		self::setTemplate('main','system/action/index');
 	}
 	/* 搜索 */
 	function searchAction(){
-		$this->view('system/action/sea');
+		self::view('system/action/sea');
 	}
 	/* 添加 */
 	function addAction(){
-		$this->view('system/action/add');
+		self::view('system/action/add');
 	}
 	function addDataAction(){
 		// 是否有数据提交
@@ -63,8 +65,8 @@ class SysMenusActionController extends ControllerBase{
 	/* 编辑 */
 	function editAction(){
 		// 视图
-		$this->setVar('edit',SysMenuAction::findfirst(['where'=>'id='.$_POST['id']]));
-		$this->view('system/action/edit');
+		self::setVar('edit',SysMenuAction::findfirst(['where'=>'id='.$_POST['id']]));
+		self::view('system/action/edit');
 	}
 	function editDataAction(){
 		// 是否有数据提交
@@ -85,7 +87,7 @@ class SysMenusActionController extends ControllerBase{
 	}
 	/* 删除 */
 	function delAction(){
-		$this->view('system/action/del');
+		self::view('system/action/del');
 	}
 	function delDataAction(){
 		// 是否有数据提交

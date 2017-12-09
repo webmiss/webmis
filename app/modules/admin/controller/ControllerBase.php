@@ -44,7 +44,7 @@ class ControllerBase extends Controller{
 	}
 
 	/* 获取菜单 */
-	function getMenus(){
+	static function getMenus(){
 		// CID
 		$C = SysMenu::findfirst(['where'=>'url="'.CONTROLLER.'"','field'=>'id,fid,title']);
 		self::$cid[] = $C->id;

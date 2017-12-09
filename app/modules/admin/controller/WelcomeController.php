@@ -5,6 +5,6 @@ namespace app\modules\admin\controller;
 class WelcomeController extends ControllerBase{
 	// 首页
 	function indexAction(){
-		$this->redirect('Desktop');
+		self::redirect('Desktop');
 	}
 }
