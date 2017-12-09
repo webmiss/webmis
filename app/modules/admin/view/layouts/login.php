@@ -26,7 +26,7 @@
 				<dd><input type="password" id="passwd" class="login_input" placeholder="请输入密码" maxlength="32" /></dd>
 				<dt>验证码：</dt>
 				<dd>
-					<input type="text" id="vcode" class="login_input" style="float: left; width: 60px;" maxlength="4" /><img src="<?php echo $this->getUrl('index/vcode');?>" id="clickVcode" class="login_vcode" alt="验证码" />
+					<input type="text" id="vcode" class="login_input" style="float: left; width: 60px;" maxlength="4" /><img src="<?php echo self::getUrl('index/vcode');?>" id="clickVcode" class="login_vcode" alt="验证码" />
 					<label class="login_uname"><input type="checkbox" id="remember" checked="true">&nbsp;记住用户名</label>
 				</dd>
 			</dl>
@@ -36,7 +36,7 @@
 			Copyright © WebMIS All rights are reserved.
 		</div>
 	</div>
-<div id="BaseURL" style="display: none;"><?php echo $this->getUrl();?></div>
+<div id="BaseURL" style="display: none;"><?php echo self::getUrl();?></div>
 <script type="text/javascript" src="/webmis/plugin/jquery/jquery-3.min.js"></script>
 <script type="text/javascript" src="/webmis/jquery.webmis.js"></script>
 <script type="text/javascript" src="/themes/admin/login.js"></script>

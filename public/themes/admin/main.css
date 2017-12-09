@@ -112,7 +112,7 @@ label.error em{float: left; padding-left: 5px;}
 }
 @media screen and ( max-width: 420px ) {
 	.body_login{background-size: 3%; min-width: 320px;}
-	.login_body{height: 230px; margin-top: -152px;}
+	.login_body{height: 246px; margin-top: -152px;}
 	/* 登录窗口 */
 	.login_ct{min-width: 260px; padding: 0 30px;}
 	.login_ct .login{overflow: hidden; width: 100%;}
@@ -121,7 +121,7 @@ label.error em{float: left; padding-left: 5px;}
 	.login_ct .login_input{width: 96%; height: 32px; line-height: 36px;}
 	.login_ct .login_vcode{width: 100px; height: 32px;}
 	.login_ct .login_uname{margin-top: 5px;}
-	.login_ct .sub{width: 100%; line-height: 32px; margin-top: 20px;}
+	.login_ct .sub{width: 100%; line-height: 48px; margin-top: 20px;}
 	/* TOP */
 	.top_logo{display: none;}
 	.top_nav{overflow: hidden; width: 1920px; transform:translate(0px);}
