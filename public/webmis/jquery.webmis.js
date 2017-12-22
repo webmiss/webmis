@@ -285,6 +285,14 @@ $(function(){
 						$(this).addClass(options.clickClass);
 					}
 				});
+				// Input
+				obj.find('input:checkbox').click(function(){
+					if($(this).prop('checked')==true){
+						$(this).prop('checked',false);
+					}else{
+						$(this).prop('checked',true);
+					}
+				});
 			break;
 
 		}

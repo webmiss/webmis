@@ -11,10 +11,6 @@ class Model{
 	static private $config;
 	static private $conn;
 
-	/* 构造函数 */
-	function __construct(){
-	}
-
 	/* 查询多条 */
 	static function find($data=''){
 		$res = self::executeFind($data);
