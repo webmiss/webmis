@@ -209,14 +209,19 @@ $(function(){
 		'checkbox':function(options){
 			var defaults = {'y':'','n':'','el':''}
 			var options = $.extend(defaults,options);
-
+			// 全选
 			$(options.y).click(function(){
 				$(this).hide();
 				$('body '+options.el+' :checkbox').prop('checked',true);
+				// 表格换色
+				$(options.el).parent().parent().children().addClass('webmis_odd_bg3');
+				// 全不选 
 				$(options.n).show().click(function(){
 					$(this).hide();
 					$(options.y).show();
 					$('body '+options.el+' :checkbox').prop('checked',false);
+					// 表格换色
+					$(options.el).parent().parent().children().removeClass('webmis_odd_bg3');
 					return false;
 				});
 				return false;
