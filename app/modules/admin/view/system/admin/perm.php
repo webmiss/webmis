@@ -3,7 +3,7 @@
 .perm{overflow: hidden; width: 100%; line-height: 16px; padding: 8px 0 2px 0;}
 .perm span{float: left; display: inline-block;}
 .perm input{width: 15px; height: 15px;}
-.perm .text{padding: 0 4px 0 10px;}
+.perm .text{padding: 0 4px 0 8px;}
 .perm_action{background: #EFF4FA;}
 .perm_an{width: 100%; padding: 20px 0; text-align: center;}
 </style>
@@ -42,7 +42,7 @@ foreach($Perm as $val){
 			<span class="text"><input type="checkbox" value="<?php echo $val->perm;?>"<?php echo $checked;?> /></span>
 			<span><?php echo $val->name;?></span>
 <?php }}?>
-		 	<span>）</span>
+		 	<span>&nbsp;&nbsp;）</span>
 		</span>
 	</div>
 <?php }}}?>
