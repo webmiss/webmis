@@ -164,9 +164,6 @@ function editPerm(id,perm){
 		$.webmis.load(data);
 		//提交
 		$('#editPerm').click(function(){
-			// // 获取权限字符串
-			// var permval = getPerm();
-			// permData(id,permval);
 			var perm='';
 			// 一级菜单
 			$('#One input:checked').each(function(){
