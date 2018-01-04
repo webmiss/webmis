@@ -158,7 +158,7 @@ function Form(){
 /* 编辑权限 */
 function editPerm(id,perm){
 	// 宽高
-	$.webmis.win({title:'编辑权限',width:720,height:540});
+	$.webmis.win({title:'编辑权限',width:820,height:540});
 	// Content
 	$.post($base_url+'SysAdmins/perm',{'perm':perm},function(data){
 		$.webmis.load(data);
