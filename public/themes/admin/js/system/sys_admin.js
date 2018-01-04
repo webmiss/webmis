@@ -158,54 +158,40 @@ function Form(){
 /* 编辑权限 */
 function editPerm(id,perm){
 	// 宽高
-	$.webmis.win({title:'编辑权限',width:820,height:540});
+	$.webmis.win({title:'编辑权限',width:720,height:540});
 	// Content
 	$.post($base_url+'SysAdmins/perm',{'perm':perm},function(data){
 		$.webmis.load(data);
 		//提交
 		$('#editPerm').click(function(){
-			// 获取权限字符串
-			var permval = getPerm();
-			permData(id,permval)
+			// // 获取权限字符串
+			// var permval = getPerm();
+			// permData(id,permval);
+			var perm='';
+			// 一级菜单
+			$('#One input:checked').each(function(){
+				perm += $(this).val()+':0 ';
+			});
+			// 二级菜单
+			$('#Two input:checked').each(function(){
+				perm += $(this).val()+':0 ';
+			});
+			// 三级菜单
+			$('#Three:checked').each(function(){
+				var a=0;
+				$('#Action_'+$(this).val()+' input:checked').each(function(){
+					a += parseInt($(this).val());
+				});
+				perm += $(this).val()+':'+a+' ';
+			});
+			// 提交权限
+			$.post($base_url+'SysAdmins/permData',{'id':id,'perm':perm},function(data){
+				if(data.state=='y'){
+					$.webmis.close(data.url+$get_url);
+				}else{
+					$('#MsgText').html('<span class="err"><em></em>'+data.msg+'</span>');
+				}
+			},'json');
 		});
 	});
-	// 提交修改
-	var permData = function (id,perm){
-		$.post($base_url+'SysAdmins/permData',{'id':id,'perm':perm},function(data){
-			if(data.state=='y'){
-				$.webmis.close(data.url+$get_url);
-			}else{
-				$.webmis.win({'content':'<div class="webmis_info err"><em></em>'+data.msg+'</div>'});
-			}
-		},'json');
-	}
-	// 生成权限字符串
-	var getPerm = function (){
-		var perm = '';
-		// 一级菜单
-		$('#oneMenuPerm input:checked').each(function(){
-			perm += $(this).val()+':0 ';
-		});
-		// 二级菜单
-		$('#twoMenuPerm input:checked').each(function(){
-			perm += $(this).val()+':0 ';
-		});
-		// 三级菜单
-		$('#threeMenuPerm input[name=threeMenuPerm]:checked').each(function(){
-			var id = $(this).val();
-			var act = getAction(id);
-			perm += id+':'+act+' ';
-		});
-		// 去除尾部空格
-		if(perm){perm = perm.substr(0, perm.length-1);}
-		return perm;
-	}
-	// 获取动作权限和
-	var getAction = function (id){
-		var perm=0;
-		$('#actionPerm_'+id+' input:checked').each(function(){
-			perm += parseInt($(this).val());
-		});
-		return perm;
-	}
 }

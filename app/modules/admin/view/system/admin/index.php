@@ -30,7 +30,7 @@ use app\library\Inc;
 	<tbody id="listBG">
 <?php foreach ($List['data'] as $val){?>
 	<tr>
-		<td><input type="checkbox" value="<?php echo $val->id;?>" /></td>
+		<td id="Checkbox"><input type="checkbox" value="<?php echo $val->id;?>" /></td>
 		<td><?php echo $val->id;?></td>
 		<td><b><?php echo Inc::keyHH($val->uname,@$_GET['uname']);?></b></td>
 		<td><?php echo $val->email;?></td>

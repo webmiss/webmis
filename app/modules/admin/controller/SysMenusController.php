@@ -110,13 +110,9 @@ class SysMenusController extends ControllerBase{
 		// 是否有数据提交
 		if($_POST){
 			// 获取ID
-			$id = json_decode($_POST['id']);
-			$data = array();
-			foreach ($id as $val){
-				$data[] = 'id='.$val;
-			}
+			$id = implode(',',json_decode($_POST['id']));
 			// 实例化
-			if(SysMenu::del($data)===true){
+			if(SysMenu::del('id IN ('.$id.')')===true){
 				echo json_encode(array('state'=>'y','url'=>'SysMenus','msg'=>'删除成功！'));
 			}else{
 				echo json_encode(array('state'=>'n','msg'=>'删除失败！'));

@@ -173,7 +173,6 @@ $(function(){
 						$('#Menus_'+num).change(function(){
 							// 清除
 							var index = $(this).index();
-							var x=0;
 							obj.find('select').each(function(){
 								if($(this).index()>index){
 									$(this).remove();

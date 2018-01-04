@@ -35,10 +35,10 @@ class SysAdminsController extends ControllerBase{
 		]));
 
 		// 获取菜单
-		$this->setVar('Menus',$this->getMenus());
+		self::setVar('Menus',$this->getMenus());
 
 		// 传递参数
-		$this->setVar('LoadJS', array('system/sys_admin.js'));
+		self::setVar('LoadJS', array('system/sys_admin.js'));
 		$this->setTemplate('main','system/admin/index');
 	}
 
@@ -95,7 +95,7 @@ class SysAdminsController extends ControllerBase{
 	/* 编辑 */
 	function editAction(){
 		// 视图
-		$this->setVar('edit',SysAdmin::findfirst(['where'=>'id='.$_POST['id']]));
+		self::setVar('edit',SysAdmin::findfirst(['where'=>'id='.$_POST['id']]));
 		$this->view('system/admin/edit');
 	}
 	function editDataAction(){
@@ -140,13 +140,9 @@ class SysAdminsController extends ControllerBase{
 		// 是否有数据提交
 		if($_POST){
 			// 获取ID
-			$id = json_decode($_POST['id']);
-			$data = array();
-			foreach ($id as $val){
-				$data[] = 'id='.$val;
-			}
+			$id = implode(',',json_decode($_POST['id']));
 			// 返回信息
-			if(SysAdmin::del($data)===true){
+			if(SysAdmin::del('id IN ('.$id.')')===true){
 				echo json_encode(array('state'=>'y','url'=>'SysAdmins','msg'=>'删除成功！'));
 			}else{
 				echo json_encode(array('state'=>'n','msg'=>'删除失败！'));
@@ -162,15 +158,12 @@ class SysAdminsController extends ControllerBase{
 		// 是否有数据提交
 		if($_POST){
 			// 获取ID
-			$id = $_POST['id'];
-			$arr = json_decode($id);
-			foreach ($arr as $val){
-				if(!SysAdmin::update(array('state'=>$_POST['state']),'id='.$val)){
-					echo json_encode(array('state'=>'n','msg'=>'审核失败！'));
-					return false;
-				}
+			$id = implode(',',json_decode($_POST['id']));
+			if(SysAdmin::update(['state'=>$_POST['state']],'id IN ('.$id.')')){
+				echo json_encode(array('state'=>'y','url'=>'SysAdmins','msg'=>'审核成功！'));
+			}else{
+				echo json_encode(array('state'=>'n','msg'=>'审核失败！'));
 			}
-			echo json_encode(array('state'=>'y','url'=>'SysAdmins','msg'=>'审核成功！'));
 		}
 	}
 
@@ -196,76 +189,38 @@ class SysAdminsController extends ControllerBase{
 
 	/* 权限 */
 	function permAction(){
-		// 权限数组
-		$permArr = $this->splitPerm($_POST['perm']);
-		// 所有动作
-		$actionM = SysMenuAction::find(['field'=>'name,perm']);
-
-		// HTML
-		$html = '';
-		// 一级菜单
-		$menu1 = SysMenu::find(['where'=>'fid=0','field'=>'id,title']);
-		foreach($menu1 as $m1){
-			$ck = isset($permArr[$m1->id])?'checked':'';
-			$html .= '<div id="oneMenuPerm" class="perm">'."\n";
-			$html .= '	<span class="text1"><input type="checkbox" value="'.$m1->id.'" '.@$ck.' /></span>'."\n";
-			$html .= '	<span>[<a href="#">-</a>] '.$m1->title.'</span>'."\n";
-			$html .= '</div>'."\n";
-			// 二级菜单
-			$menu2 = SysMenu::find(['where'=>'fid='.$m1->id,'field'=>'id,title']);
-			foreach($menu2 as $m2){
-				$ck = isset($permArr[$m2->id])?'checked':'';
-				$html .= '<div id="twoMenuPerm" class="perm">'."\n";
-				$html .= '	<span class="text2"><input type="checkbox" value="'.$m2->id.'" '.@$ck.' /></span>'."\n";
-				$html .= '	<span>[<a href="#">-</a>] '.$m2->title.'</span>'."\n";
-				$html .= '</div>';
-				// 二级菜单
-				$menu3 = SysMenu::find(['where'=>'fid='.$m2->id,'field'=>'id,title,perm']);
-				foreach($menu3 as $m3){
-					$ck = isset($permArr[$m3->id])?'checked':'';
-					$html .= '<div id="threeMenuPerm" class="perm perm_action">'."\n";
-					$html .= '	<span class="text3"><input type="checkbox" name="threeMenuPerm" value="'.$m3->id.'" '.@$ck.' /></span>'."\n";
-					$html .= '	<span>[<a href="#">-</a>] '.$m3->title.'</span>'."\n";
-					$html .= '	<span id="actionPerm_'.$m3->id.'"> ( ';
-					// 动作菜单
-					foreach($actionM as $val){
-						if(intval($m3->perm) & intval($val->perm)){
-							$ck = @$permArr[$m3->id]&intval($val->perm)?'checked':'';
-							$html .= '<span><input type="checkbox" value="'.$val->perm.'" '.@$ck.' /></span><span class="text">'.$val->name.'</span>';
-						}
-					}
-					$html .= ')</span>';
-					$html .= '</div>';
-				}
-			}
+		// 拆分权限
+		$permArr=[];
+		$arr = explode(' ',$_POST['perm']);
+		foreach($arr as $val){
+			$a=explode(':',$val);
+			$permArr[$a[0]]=$a[1];
 		}
-
-		// 视图
-		$this->setVar('permHtml', $html);
+		self::setVar('permArr',$permArr);
+		self::setVar('Perm',SysMenuAction::find(['field'=>'name,perm']));
+		self::setVar('Menus',$this->Menus());
 		$this->view('system/admin/perm');
-	}
-	/* 拆分权限 */
-	private function splitPerm($perm){
-		if($perm){
-			$arr = explode(' ', $perm);
-			foreach($arr as $val) {
-				$num = explode(':', $val);
-				$permArr[$num[0]]= $num[1];
-			}
-			return $permArr;
-		}else{return FALSE;}
 	}
 	function permDataAction(){
 		// 是否有数据提交
 		if($_POST){
-			// 采集数据
-			$data['perm'] = trim($_POST['perm']);
 			// 返回信息
-			if(SysAdmin::update($data,'id='.$_POST['id'])){
+			if(SysAdmin::update(['perm'=>trim($_POST['perm'])],'id='.$_POST['id'])){
 				echo json_encode(array('state'=>'y','url'=>'SysAdmins'));
 			}else{
 				echo json_encode(array('state'=>'n','msg'=>'权限编辑失败！'));
 			}
 		}
 	}
+	// 递归全部菜单
+	private function Menus($fid='0'){
+		$data=[];
+		$M = SysMenu::find(['where'=>'fid='.$fid,'field'=>'id,title,perm']);
+		foreach($M as $val){
+			$val->menus = $this->Menus($val->id);
+			$data[] = $val;
+		}
+		return $data;
+	}
+
 }

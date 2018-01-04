@@ -17,7 +17,7 @@ class Model{
 		// 数据
 		$data = [];
 		if(empty($res->num_rows)){return $data;}
-		while($row = mysqli_fetch_object($res)){
+		while($row = $res->fetch_object()){
 			$data[] = $row;
 		}
 		// 结果
@@ -31,7 +31,7 @@ class Model{
 		$data = [];
 		if(empty($res->num_rows)){return $data;}
 		// 结果
-		return mysqli_fetch_object($res);
+		return $res->fetch_object();
 	}
 
 	/* 返回条数 */
@@ -42,7 +42,7 @@ class Model{
 		$sql = $where?'SELECT '.$field.' FROM '.$table.' WHERE '.$where:'SELECT '.$field.' FROM '.$table;
 		$res = self::execute($sql);
 
-		return @mysqli_num_rows($res);
+		return isset($res->num_rows)?$res->num_rows:false;
 	}
 
 	// 执行查询
@@ -121,4 +121,5 @@ class Model{
 		// 结果
 		return $res;
 	}
+	
 }
