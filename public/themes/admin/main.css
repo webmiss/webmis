@@ -32,7 +32,7 @@ label.error{float: left; line-height: 22px; padding: 5px 0;}
 label.error em{float: left; padding-left: 5px;}
 
 /* login */
-.body_login{overflow: hidden; background: url("images/bg.png") #2D2D2D center center; background-size: 0.8%;}
+.body_login{overflow: hidden; height: 100%; background: url("images/bg.png") #2D2D2D center center; background-size: 0.8%;}
 .login_title{position: absolute; width: 100%; font-size: 38px; height: 60px; line-height: 60px; color: #DFE1E8; text-align: center; min-width: 320px; margin-top: -85px;}
 .login_body{position: absolute; width: 100%; height: 100px; background-color: #3D3D3D; padding: 24px 0; top: 50%; margin-top: -74px;}
 .login_ct{overflow: hidden; max-width: 420px; margin: 0 auto; color: #DFE1E8;}
