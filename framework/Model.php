@@ -65,7 +65,11 @@ class Model{
 		$table = isset($data['table'])?$data['table']:static::$table;
 		// 拼接
 		$k = '`'.implode('`,`', array_keys($data)).'`';
-		$v = '\''.implode('\',\'', $data).'\'';
+		$v = '';
+		foreach($data as $val){
+			$v .= '\''.self::$conn->real_escape_string($val).'\',';
+		}
+		$v = rtrim($v,',');
 		// SQL
 		$sql = 'INSERT INTO `'.$table.'`('.$k.') VALUES ('.$v.')';
 		// 执行SQL
@@ -80,7 +84,7 @@ class Model{
 		// 拼接
 		$str = '';
 		foreach($data as $key=>$val){
-			$str .= '`'.$key.'`=\''.$val.'\',';
+			$str .= '`'.$key.'`=\''.self::$conn->real_escape_string($val).'\',';
 		}
 		$str = rtrim($str,',');
 		// SQL
@@ -121,5 +125,4 @@ class Model{
 		// 结果
 		return $res;
 	}
-	
 }

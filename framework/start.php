@@ -31,6 +31,10 @@ if(isset($_GET['_url'])){
 $m = isset($arr[0])?$arr[0]:$config['default_module'];
 $c = isset($arr[1])?ucwords($arr[1]):$config['default_controller'];
 $a = isset($arr[2])?$arr[2]:$config['default_action'];
+// 参数
+$p1 = isset($arr[3])?$arr[3]:'';
+$p2 = isset($arr[4])?$arr[4]:'';
+$p3 = isset($arr[5])?$arr[5]:'';
 
 // 常量
 define('MODULE',$m);
@@ -54,4 +58,4 @@ $C = new $c();
 if(!method_exists($C,$a)){die(ACTION.'：该函数不存在！');}
 
 // 调用
-return $C->$a();
+return $C->$a($p1,$p2,$p3);
