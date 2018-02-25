@@ -53,6 +53,7 @@ class Model{
 		// SQL
 		$sql = 'SELECT '.$field.' FROM `'.$table.'`';
 		$sql .= isset($data['where'])&&!empty($data['where'])?' WHERE '.$data['where']:'';
+		$sql .= isset($data['group'])&&!empty($data['group'])?' GROUP BY '.$data['group']:'';
 		$sql .= isset($data['order'])&&!empty($data['order'])?' ORDER BY '.$data['order']:'';
 		$sql .= isset($data['limit'])&&!empty($data['limit'])?' LIMIT '.$data['limit']:'';
 		// 执行SQL
