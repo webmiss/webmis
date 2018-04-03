@@ -41,7 +41,7 @@ $a .= 'Action';
 // 框架: 命名空间和自动加载类
 spl_autoload_register(function($class){
 	$file = strtr(__DIR__.'/../'.$class.'.php','\\',DIRECTORY_SEPARATOR);
-	if(!is_file($file)){die('警告：该文件不存在！');}
+	if(!is_file($file))die('警告：该文件不存在！');
 	// echo $file."\n";
 	require $file;
 });
