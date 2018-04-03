@@ -17,9 +17,7 @@ class Model{
 		// 数据
 		$data = [];
 		if(empty($res->num_rows)){return $data;}
-		while($row = $res->fetch_object()){
-			$data[] = $row;
-		}
+		while($row = $res->fetch_object()) $data[] = $row;
 		// 结果
 		return $data;
 	}
@@ -27,22 +25,22 @@ class Model{
 	/* 查询一条 */
 	static function findfirst($data=''){
 		$res = self::executeFind($data);
-		// 数据
-		$data = [];
-		if(empty($res->num_rows)){return $data;}
 		// 结果
-		return $res->fetch_object();
+		return $res?$res->fetch_object():'';
 	}
 
 	/* 返回条数 */
-	static function getNumRows($where='',$field='*',$table=''){
+	static function getNumRows($where='',$table=''){
 		// 数据表
 		$table = $table?$table:static::$table;
 		// SQL语句
-		$sql = $where?'SELECT '.$field.' FROM '.$table.' WHERE '.$where:'SELECT '.$field.' FROM '.$table;
+		$sql = 'SELECT * FROM `'.$table.'`';
+		$sql .= !empty($where)?' WHERE '.$where:'';
+		// 连接数据库
+		self::conn();
+		// SQL
 		$res = self::execute($sql);
-
-		return isset($res->num_rows)?$res->num_rows:false;
+		return isset($res->num_rows)?$res->num_rows:0;
 	}
 
 	// 执行查询
@@ -56,6 +54,8 @@ class Model{
 		$sql .= isset($data['group'])&&!empty($data['group'])?' GROUP BY '.$data['group']:'';
 		$sql .= isset($data['order'])&&!empty($data['order'])?' ORDER BY '.$data['order']:'';
 		$sql .= isset($data['limit'])&&!empty($data['limit'])?' LIMIT '.$data['limit']:'';
+		// 连接数据库
+		self::conn();
 		// 执行SQL
 		return self::execute($sql);
 	}
@@ -64,24 +64,26 @@ class Model{
 	static function add($data=''){
 		// 表
 		$table = isset($data['table'])?$data['table']:static::$table;
-		// 拼接
+		// 连接数据库
+		self::conn();
+		// 拼接SQL
 		$k = '`'.implode('`,`', array_keys($data)).'`';
 		$v = '';
 		foreach($data as $val){
 			$v .= '\''.self::$conn->real_escape_string($val).'\',';
 		}
 		$v = rtrim($v,',');
-		// SQL
 		$sql = 'INSERT INTO `'.$table.'`('.$k.') VALUES ('.$v.')';
 		// 执行SQL
-		$res = self::execute($sql);
-		return $res;
+		return self::execute($sql);
 	}
 
 	/* 更新 */
 	static function update($data='',$where=''){
 		// 表
 		$table = isset($data['table'])?$data['table']:static::$table;
+		// 连接数据库
+		self::conn();
 		// 拼接
 		$str = '';
 		foreach($data as $key=>$val){
@@ -91,8 +93,7 @@ class Model{
 		// SQL
 		$sql = 'UPDATE `'.$table.'` SET '.$str.' WHERE '.$where;
 		// 执行SQL
-		$res = self::execute($sql);
-		return $res;
+		return self::execute($sql);
 	}
 
 	/* 删除 */
@@ -106,24 +107,27 @@ class Model{
 		// SQL
 		$sql = 'DELETE FROM `'.$table.'`';
 		$sql .= isset($where)?' WHERE '.$where:'';
+		// 连接数据库
+		self::conn();
 		// 执行SQL
-		$res = self::execute($sql);
-		return $res;
+		return self::execute($sql);
 	}
 
 	/* 执行QSL */
 	static function execute($sql){
+		// 结果
+		return self::$conn->query($sql);
+	}
+
+	// 连接数据库
+	static private function conn(){
 		// 配置文件
 		self::$config = require APP.'database.php';
 		// 链接并打开数据库(永久链接)
 		self::$conn = new mysqli(self::$config['host'],self::$config['uname'],self::$config['passwd'],self::$config['db']);
 		// 链接错误
-		if(self::$conn->connect_error){ die('错误('.self::$conn->connect_errno.'):'.self::$conn->connect_error); }
+		if(self::$conn->connect_error)die('错误('.self::$conn->connect_errno.'):'.self::$conn->connect_error);
 		// 设置编码
-		self::$conn->set_charset(self::$config['charset']);
-		// 执行SQL
-		$res = self::$conn->query($sql);
-		// 结果
-		return $res;
+		if(!self::$conn->set_charset(self::$config['charset']))die('设置编码：'.self::$conn->error);
 	}
 }

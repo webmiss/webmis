@@ -9,6 +9,6 @@ class SystemController extends ControllerBase{
 		$menus = self::getMenus();
 		self::setVar('Menus',$menus);
 		// 视图
-		self::setTemplate('main','system/index');
+		return self::setTemplate('main','system/index');
 	}
 }

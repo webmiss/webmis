@@ -14,7 +14,7 @@ class Images{
 	* @param2 int height - 高度
 	* @param3 string fonts  - 字体路径
 	*/
-	static function getCode($width=80, $height=28, $fonts='upload/fonts/ariblk.ttf'){
+	static function getCode($width=80, $height=28, $fonts=__DIR__.'/../../public/upload/fonts/ariblk.ttf'){
 		// 清空当前缓冲区的数据
 		ob_clean();
 		// 创建图片
@@ -27,7 +27,7 @@ class Images{
 		/* 创建干扰点 */
 		for ($i=0; $i<300; $i++){
 			$diancolor =imagecolorallocate($image, rand(100,200), rand(60,120),rand(122,255));
-			imagesetpixel($image, rand(0,80),rand(0,28),$diancolor);
+			imagesetpixel($image, rand(0,$width),rand(0,$height),$diancolor);
 		}
 
 		/* 随机字符 */

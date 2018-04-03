@@ -35,7 +35,7 @@ class SysMenusActionController extends ControllerBase{
 
 		// 传递参数
 		self::setVar('LoadJS', array('system/sys_menus_action.js'));
-		self::setTemplate('main','system/action/index');
+		return self::setTemplate('main','system/action/index');
 	}
 	/* 搜索 */
 	function searchAction(){
@@ -56,9 +56,9 @@ class SysMenusActionController extends ControllerBase{
 			];
 			// 返回信息
 			if(SysMenuAction::add($data)){
-				echo json_encode(array('state'=>'y','url'=>'SysMenusAction','msg'=>'添加成功！'));
+				return json_encode(array('state'=>'y','url'=>'SysMenusAction','msg'=>'添加成功！'));
 			}else{
-				echo json_encode(array('state'=>'n','msg'=>'添加失败！'));
+				return json_encode(array('state'=>'n','msg'=>'添加失败！'));
 			}
 		}
 	}
@@ -79,9 +79,9 @@ class SysMenusActionController extends ControllerBase{
 			];
 			// 返回信息
 			if(SysMenuAction::update($data,'id='.$_POST['id'])){
-				echo json_encode(array('state'=>'y','url'=>'SysMenusAction','msg'=>'编辑成功！'));
+				return json_encode(array('state'=>'y','url'=>'SysMenusAction','msg'=>'编辑成功！'));
 			}else{
-				echo json_encode(array('state'=>'n','msg'=>'编辑失败！'));
+				return json_encode(array('state'=>'n','msg'=>'编辑失败！'));
 			}
 		}
 	}
@@ -96,9 +96,9 @@ class SysMenusActionController extends ControllerBase{
 			$id = implode(',',json_decode($_POST['id']));
 			// 实例化
 			if(SysMenuAction::del('id IN ('.$id.')')===true){
-				echo json_encode(array('state'=>'y','url'=>'SysMenusAction','msg'=>'删除成功！'));
+				return json_encode(array('state'=>'y','url'=>'SysMenusAction','msg'=>'删除成功！'));
 			}else{
-				echo json_encode(array('state'=>'n','msg'=>'删除失败！'));
+				return json_encode(array('state'=>'n','msg'=>'删除失败！'));
 			}		
 		}
 	}

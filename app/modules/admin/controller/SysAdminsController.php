@@ -39,17 +39,17 @@ class SysAdminsController extends ControllerBase{
 
 		// 传递参数
 		self::setVar('LoadJS', array('system/sys_admin.js'));
-		$this->setTemplate('main','system/admin/index');
+		return $this->setTemplate('main','system/admin/index');
 	}
 
 	/* 搜索 */
 	function searchAction(){
-		$this->view('system/admin/sea');
+		return $this->view('system/admin/sea');
 	}
 
 	/* 添加 */
 	function addAction(){
-		$this->view('system/admin/add');
+		return $this->view('system/admin/add');
 	}
 	function addDataAction(){
 		// 是否有数据提交
@@ -67,27 +67,26 @@ class SysAdminsController extends ControllerBase{
 			];
 			// 验证
 			$res = Safety::isRight('uname',$data['uname']);
-			if($res!==true){echo json_encode(array('state'=>'n','msg'=>$res));return false;}
+			if($res!==true){return json_encode(array('state'=>'n','msg'=>$res));}
 			$res = Safety::isRight('passwd',$_POST['passwd']);
-			if($res!==true){echo json_encode(array('state'=>'n','msg'=>$res));return false;}
+			if($res!==true){return json_encode(array('state'=>'n','msg'=>$res));}
 			$res = Safety::isRight('email',$data['email']);
-			if($res!==true){echo json_encode(array('state'=>'n','msg'=>$res));return false;}
+			if($res!==true){return json_encode(array('state'=>'n','msg'=>$res));}
 			$res = Safety::isRight('tel',$data['tel']);
-			if($res!==true){echo json_encode(array('state'=>'n','msg'=>$res));return false;}
+			if($res!==true){return json_encode(array('state'=>'n','msg'=>$res));}
 			// 是否存在用户
 			$isNull =SysAdmin::findfirst([
 				'where'=>'uname="'.$data['uname'].'" OR tel="'.$data['tel'].'" OR email="'.$data['email'].'"',
 				'field'=>'id'
 			]);
 			if($isNull){
-				echo json_encode(array('state'=>'n','msg'=>'该用户已经存在！'));
-				return false;
+				return json_encode(array('state'=>'n','msg'=>'该用户已经存在！'));
 			}
 			// 返回信息
 			if(SysAdmin::add($data)){
-				echo json_encode(array('state'=>'y','url'=>'SysAdmins','msg'=>'添加成功！'));
+				return json_encode(array('state'=>'y','url'=>'SysAdmins','msg'=>'添加成功！'));
 			}else{
-				echo json_encode(array('state'=>'n','msg'=>'添加失败！'));
+				return json_encode(array('state'=>'n','msg'=>'添加失败！'));
 			}
 		}
 	}
@@ -96,7 +95,7 @@ class SysAdminsController extends ControllerBase{
 	function editAction(){
 		// 视图
 		self::setVar('edit',SysAdmin::findfirst(['where'=>'id='.$_POST['id']]));
-		$this->view('system/admin/edit');
+		return $this->view('system/admin/edit');
 	}
 	function editDataAction(){
 		// 是否有数据提交
@@ -110,7 +109,7 @@ class SysAdminsController extends ControllerBase{
 			// 是否修改密码
 			if(!empty($_POST['passwd'])){
 				$res = Safety::isRight('passwd',$_POST['passwd']);
-				if($res!==true){echo json_encode(array('state'=>'n','msg'=>$res));return false;}
+				if($res!==true){return json_encode(array('state'=>'n','msg'=>$res));}
 				// 原密码判断
 				$isNull =SysAdmin::findfirst([
 					'where'=>'id="'.$_POST['id'].'" AND password="'.md5($_POST['passwd1']).'"',
@@ -119,22 +118,21 @@ class SysAdminsController extends ControllerBase{
 				if($isNull){
 					$data['password'] = md5($_POST['passwd']);
 				}else{
-					echo json_encode(array('state'=>'n','msg'=>'原密码错误！'));
-					return false;
+					return json_encode(array('state'=>'n','msg'=>'原密码错误！'));
 				}
 			}
 			// 返回信息
 			if(SysAdmin::update($data,'id='.$_POST['id'])){
-				echo json_encode(array('state'=>'y','url'=>'SysAdmins','msg'=>'编辑成功！'));
+				return json_encode(array('state'=>'y','url'=>'SysAdmins','msg'=>'编辑成功！'));
 			}else{
-				echo json_encode(array('state'=>'n','msg'=>'编辑失败！'));
+				return json_encode(array('state'=>'n','msg'=>'编辑失败！'));
 			}
 		}
 	}
 
 	/* 删除 */
 	function delAction(){
-		$this->view('system/admin/del');
+		return $this->view('system/admin/del');
 	}
 	function delDataAction(){
 		// 是否有数据提交
@@ -143,16 +141,16 @@ class SysAdminsController extends ControllerBase{
 			$id = implode(',',json_decode($_POST['id']));
 			// 返回信息
 			if(SysAdmin::del('id IN ('.$id.')')===true){
-				echo json_encode(array('state'=>'y','url'=>'SysAdmins','msg'=>'删除成功！'));
+				return json_encode(array('state'=>'y','url'=>'SysAdmins','msg'=>'删除成功！'));
 			}else{
-				echo json_encode(array('state'=>'n','msg'=>'删除失败！'));
+				return json_encode(array('state'=>'n','msg'=>'删除失败！'));
 			}		
 		}
 	}
 
 	/* 审核 */
 	function auditAction(){
-		$this->view('system/admin/audit');
+		return $this->view('system/admin/audit');
 	}
 	function auditDataAction(){
 		// 是否有数据提交
@@ -160,9 +158,9 @@ class SysAdminsController extends ControllerBase{
 			// 获取ID
 			$id = implode(',',json_decode($_POST['id']));
 			if(SysAdmin::update(['state'=>$_POST['state']],'id IN ('.$id.')')){
-				echo json_encode(array('state'=>'y','url'=>'SysAdmins','msg'=>'审核成功！'));
+				return json_encode(array('state'=>'y','url'=>'SysAdmins','msg'=>'审核成功！'));
 			}else{
-				echo json_encode(array('state'=>'n','msg'=>'审核失败！'));
+				return json_encode(array('state'=>'n','msg'=>'审核失败！'));
 			}
 		}
 	}
@@ -183,7 +181,7 @@ class SysAdminsController extends ControllerBase{
 		// 查询
 		if($where){
 			$data = SysAdmin::findfirst(['where'=>$where,'field'=>'id']);
-			echo $data?json_encode(['state'=>'y']):json_encode(['state'=>'n']);
+			return $data?json_encode(['state'=>'y']):json_encode(['state'=>'n']);
 		}
 	}
 
@@ -199,16 +197,16 @@ class SysAdminsController extends ControllerBase{
 		self::setVar('permArr',$permArr);
 		self::setVar('Perm',SysMenuAction::find(['field'=>'name,perm']));
 		self::setVar('Menus',$this->Menus());
-		$this->view('system/admin/perm');
+		return $this->view('system/admin/perm');
 	}
 	function permDataAction(){
 		// 是否有数据提交
 		if($_POST){
 			// 返回信息
 			if(SysAdmin::update(['perm'=>trim($_POST['perm'])],'id='.$_POST['id'])){
-				echo json_encode(array('state'=>'y','url'=>'SysAdmins'));
+				return json_encode(array('state'=>'y','url'=>'SysAdmins'));
 			}else{
-				echo json_encode(array('state'=>'n','msg'=>'权限编辑失败！'));
+				return json_encode(array('state'=>'n','msg'=>'权限编辑失败！'));
 			}
 		}
 	}

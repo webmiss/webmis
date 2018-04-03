@@ -9,6 +9,6 @@ class WebController extends ControllerBase{
 		$menus = self::getMenus();
 		self::setVar('Menus',$menus);
 		// 视图
-		self::setTemplate('main','web/index');
+		return self::setTemplate('main','web/index');
 	}
 }

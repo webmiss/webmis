@@ -17,16 +17,13 @@ class ControllerBase extends Controller{
 	function __construct(){
 		// 是否登录
 		$admin = @$_SESSION['Admin'];
-		$ltime = $admin['ltime'];
-		$ntime = time();
-		if(!$admin['logged_in'] || $ltime<$ntime){
+		if(!$admin || !$admin['logged_in'] || $admin['ltime']<time()){
 			$this->redirect('index/loginOut');
 		}else{
 			$_SESSION['Admin']['ltime'] = time()+1800;
 		}
 		// 获取权限
 		$perm = SysAdmin::findfirst(['where'=>'id='.$admin['id'],'field'=>'perm']);
-		$data = [];
 		$arr = explode(' ',$perm->perm);
 		foreach($arr as $val){
 			$a = explode(':',$val);

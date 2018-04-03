@@ -37,7 +37,12 @@ class Controller{
 		// 参数
 		foreach(self::$var as $key=>$val){$$key = $val;}
 		// 加载视图
-		return require_once $file;
+		ob_start();
+		include $file;
+		$ct=ob_get_contents();
+		ob_end_clean();
+		// 结果
+		return $ct;
 	}
 
 	/* 加载模板视图 */
@@ -53,7 +58,12 @@ class Controller{
 		foreach(self::$var as $key=>$val){$$key = $val;}
 		// 加载视图
 		self::$getContent = $file;
-		return require_once $template;
+		ob_start();
+		include $template;
+		$ct=ob_get_contents();
+		ob_end_clean();
+		// 结果
+		return $ct;
 	}
 
 }

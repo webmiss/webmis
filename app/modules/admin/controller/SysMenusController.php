@@ -36,19 +36,19 @@ class SysMenusController extends ControllerBase{
 
 		// 传递参数
 		self::setVar('LoadJS', array('system/sys_menus.js'));
-		self::setTemplate('main','system/menus/index');
+		return self::setTemplate('main','system/menus/index');
 	}
 
 	/* 搜索 */
 	function searchAction(){
-		self::view('system/menus/sea');
+		return self::view('system/menus/sea');
 	}
 
 	/* 添加 */
 	function addAction(){
 		// 所有权限
 		self::setVar('perm',SysMenuAction::find(['field'=>'name,perm']));
-		self::view('system/menus/add');
+		return self::view('system/menus/add');
 	}
 	function addDataAction(){
 		// 是否有数据提交
@@ -65,9 +65,9 @@ class SysMenusController extends ControllerBase{
 			];
 			// 返回信息
 			if(SysMenu::add($data)){
-				echo json_encode(array('state'=>'y','url'=>'SysMenus','msg'=>'添加成功！'));
+				return json_encode(array('state'=>'y','url'=>'SysMenus','msg'=>'添加成功！'));
 			}else{
-				echo json_encode(array('state'=>'n','msg'=>'添加失败！'));
+				return json_encode(array('state'=>'n','msg'=>'添加失败！'));
 			}
 		}
 	}
@@ -78,7 +78,7 @@ class SysMenusController extends ControllerBase{
 		self::setVar('perm',SysMenuAction::find(['field'=>'name,perm']));
 		// 视图
 		self::setVar('edit',SysMenu::findfirst(['where'=>'id='.$_POST['id']]));
-		self::view('system/menus/edit');
+		return self::view('system/menus/edit');
 	}
 	function editDataAction(){
 		// 是否有数据提交
@@ -95,16 +95,16 @@ class SysMenusController extends ControllerBase{
 			];
 			// 返回信息
 			if(SysMenu::update($data,'id='.$_POST['id'])){
-				echo json_encode(array('state'=>'y','url'=>'SysMenus','msg'=>'编辑成功！'));
+				return json_encode(array('state'=>'y','url'=>'SysMenus','msg'=>'编辑成功！'));
 			}else{
-				echo json_encode(array('state'=>'n','msg'=>'编辑失败！'));
+				return json_encode(array('state'=>'n','msg'=>'编辑失败！'));
 			}
 		}
 	}
 
 	/* 删除 */
 	function delAction(){
-		self::view('system/menus/del');
+		return self::view('system/menus/del');
 	}
 	function delDataAction(){
 		// 是否有数据提交
@@ -113,9 +113,9 @@ class SysMenusController extends ControllerBase{
 			$id = implode(',',json_decode($_POST['id']));
 			// 实例化
 			if(SysMenu::del('id IN ('.$id.')')===true){
-				echo json_encode(array('state'=>'y','url'=>'SysMenus','msg'=>'删除成功！'));
+				return json_encode(array('state'=>'y','url'=>'SysMenus','msg'=>'删除成功！'));
 			}else{
-				echo json_encode(array('state'=>'n','msg'=>'删除失败！'));
+				return json_encode(array('state'=>'n','msg'=>'删除失败！'));
 			}		
 		}
 	}
@@ -129,7 +129,7 @@ class SysMenusController extends ControllerBase{
 			$data[] = [$val->id,$val->title];
 		}
 		// 返回数据
-		echo json_encode($data);
+		return json_encode($data);
 	}
 
 }

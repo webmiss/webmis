@@ -4,29 +4,22 @@
   * FrameWork
   * ==================
   * Author：WebMIS
-  * Version:1.0
+  * Version:1.0.1
   */
 
 // 测速
 // $start = microtime(true);
 // echo (microtime(true) - $start)*1000;
 
-// 框架: 命名空间和自动加载类
-spl_autoload_register(function($class){
-	$file = strtr(__DIR__.'/../'.$class.'.php','\\',DIRECTORY_SEPARATOR);
-	if(!is_file($file)){die('警告：该文件不存在！');}
-	// echo $file."\n";
-	require $file;
-});
-
-// 配置文件
-$config = require APP.'config.php';
-
 // 拆分参数
 if(isset($_GET['_url'])){
 	$arr = array_values(array_filter(explode('/',$_GET['_url'])));
 	unset($_GET['_url']);
 }
+
+// 配置文件
+$config = require APP.'config.php';
+
 // 模块、控制器、函数
 $m = isset($arr[0])?$arr[0]:$config['default_module'];
 $c = isset($arr[1])?ucwords($arr[1]):$config['default_controller'];
@@ -45,17 +38,25 @@ define('ACTION',$a);
 $c .= 'Controller';
 $a .= 'Action';
 
+// 框架: 命名空间和自动加载类
+spl_autoload_register(function($class){
+	$file = strtr(__DIR__.'/../'.$class.'.php','\\',DIRECTORY_SEPARATOR);
+	if(!is_file($file)){die('警告：该文件不存在！');}
+	// echo $file."\n";
+	require $file;
+});
+
 // 控制器
 $c = '\\app\\modules\\'.$m.'\\controller\\'.$c;
 
 // 是否存在类
-if(!class_exists($c)){die(CONTROLLER.'：该类不存在！');}
+if(!class_exists($c))die(CONTROLLER.'：该类不存在！');
 
 // 实例化
 $C = new $c();
 
 // 是否存在函数
-if(!method_exists($C,$a)){die(ACTION.'：该函数不存在！');}
+if(!method_exists($C,$a))die(ACTION.'：该函数不存在！');
 
 // 调用
-return $C->$a($p1,$p2,$p3);
+echo $C->$a($p1,$p2,$p3);

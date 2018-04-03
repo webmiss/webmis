@@ -20,7 +20,7 @@ class  SysConfigController extends ControllerBase{
 
 		// 传递参数
 		$this->setVar('LoadJS', array('system/sys_config.js'));
-		$this->setTemplate('main','system/config/index');
+		return $this->setTemplate('main','system/config/index');
 	}
 
 	//处理数据
@@ -34,9 +34,9 @@ class  SysConfigController extends ControllerBase{
 			}
 			//写入内容
 			if(file_put_contents($this->file,$ct)){
-				echo json_encode(array('status'=>'y','url'=>'SysConfig','msg'=>'保存成功！'));
+				return json_encode(array('status'=>'y','url'=>'SysConfig','msg'=>'保存成功！'));
 			}else{
-				echo json_encode(array('status'=>'n','msg'=>'保存失败！'));
+				return json_encode(array('status'=>'n','msg'=>'保存失败！'));
 			}
 		}
 	}
