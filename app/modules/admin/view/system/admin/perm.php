@@ -37,7 +37,7 @@ foreach($m2->menus as $m3){
 <?php
 foreach($Perm as $val){
 	if(intval($m3->perm)&intval($val->perm)){
-		$checked = isset($permArr[$m3->id])?' checked':'';
+		$checked = intval($permArr[$m3->id])&intval($val->perm)?' checked':'';
 ?>
 			<span class="text"><input type="checkbox" value="<?php echo $val->perm;?>"<?php echo $checked;?> /></span>
 			<span><?php echo $val->name;?></span>
