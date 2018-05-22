@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 -- 表的结构 `sys_admin`
 --
-
+DROP TABLE IF EXISTS `sys_admin`;
 CREATE TABLE `sys_admin` (
   `id` tinyint(3) NOT NULL COMMENT 'ID',
   `uname` varchar(16) NOT NULL COMMENT '用户名',
@@ -54,7 +54,7 @@ INSERT INTO `sys_admin` (`id`, `uname`, `password`, `email`, `tel`, `name`, `dep
 --
 -- 表的结构 `sys_menus`
 --
-
+DROP TABLE IF EXISTS `sys_menus`;
 CREATE TABLE `sys_menus` (
   `id` tinyint(3) NOT NULL COMMENT 'ID',
   `fid` tinyint(3) NOT NULL COMMENT '父ID',
@@ -88,7 +88,7 @@ INSERT INTO `sys_menus` (`id`, `fid`, `title`, `url`, `perm`, `ico`, `ctime`, `s
 --
 -- 表的结构 `sys_menus_action`
 --
-
+DROP TABLE IF EXISTS `sys_menus_action`;
 CREATE TABLE `sys_menus_action` (
   `id` int(2) NOT NULL COMMENT 'ID',
   `name` varchar(32) NOT NULL COMMENT 'Name',
