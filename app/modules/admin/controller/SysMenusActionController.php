@@ -39,11 +39,11 @@ class SysMenusActionController extends ControllerBase{
 	}
 	/* 搜索 */
 	function searchAction(){
-		self::view('system/action/sea');
+		return self::view('system/action/sea');
 	}
 	/* 添加 */
 	function addAction(){
-		self::view('system/action/add');
+		return self::view('system/action/add');
 	}
 	function addDataAction(){
 		// 是否有数据提交
@@ -66,7 +66,7 @@ class SysMenusActionController extends ControllerBase{
 	function editAction(){
 		// 视图
 		self::setVar('edit',SysMenuAction::findfirst(['where'=>'id='.$_POST['id']]));
-		self::view('system/action/edit');
+		return self::view('system/action/edit');
 	}
 	function editDataAction(){
 		// 是否有数据提交
@@ -87,7 +87,7 @@ class SysMenusActionController extends ControllerBase{
 	}
 	/* 删除 */
 	function delAction(){
-		self::view('system/action/del');
+		return self::view('system/action/del');
 	}
 	function delDataAction(){
 		// 是否有数据提交
