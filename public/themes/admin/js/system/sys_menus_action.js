@@ -8,7 +8,7 @@ $(function () {
 	/* 搜索 */
 	$('#ico-search').click(function(){
 		// 创建窗口
-		$.webmis.win({title:'搜索',width:420,height:240});
+		$.webmis.win({title:'搜索',width:360,height:200});
 		// ajax
 		$.get($base_url+'SysMenusAction/search'+$get_url,function(data){
 			$.webmis.load(data);

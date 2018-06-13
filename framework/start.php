@@ -4,12 +4,19 @@
   * FrameWork
   * ==================
   * Author：WebMIS
-  * Version:1.0.1
+  * Version：1.0.2
   */
 
 // 测速
 // $start = microtime(true);
 // echo (microtime(true) - $start)*1000;
+
+// 框架: 命名空间和自动加载类
+spl_autoload_register(function($class){
+	$file = strtr(__DIR__.'/../'.$class.'.php','\\','/');
+	if(!is_file($file))die('警告：该文件不存在！');
+	require $file;
+});
 
 // 拆分参数
 if(isset($_GET['_url'])){
@@ -38,25 +45,13 @@ define('ACTION',$a);
 $c .= 'Controller';
 $a .= 'Action';
 
-// 框架: 命名空间和自动加载类
-spl_autoload_register(function($class){
-	$file = strtr(__DIR__.'/../'.$class.'.php','\\',DIRECTORY_SEPARATOR);
-	if(!is_file($file))die('警告：该文件不存在！');
-	// echo $file."\n";
-	require $file;
-});
-
 // 控制器
 $c = '\\app\\modules\\'.$m.'\\controller\\'.$c;
-
 // 是否存在类
 if(!class_exists($c))die(CONTROLLER.'：该类不存在！');
-
 // 实例化
 $C = new $c();
-
 // 是否存在函数
 if(!method_exists($C,$a))die(ACTION.'：该函数不存在！');
-
 // 调用
 echo $C->$a($p1,$p2,$p3);

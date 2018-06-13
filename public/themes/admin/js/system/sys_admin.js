@@ -8,7 +8,7 @@ $(function () {
 	/* 搜索 */
 	$('#ico-search').click(function(){
 		// 创建窗口
-		$.webmis.win({title:'搜索',width:420,height:320});
+		$.webmis.win({title:'搜索',width:420,height:280});
 		// ajax
 		$.get($base_url+'SysAdmins/search'+$get_url,function(data){
 			$.webmis.load(data);
@@ -19,7 +19,7 @@ $(function () {
 	/* 添加 */
 	$('#ico-add').click(function(){
 		// 创建窗口
-		$.webmis.win({title:'添加',width:620,height:520});
+		$.webmis.win({title:'添加',width:620,height:500});
 		// ajax
 		$.get($base_url+'SysAdmins/add',function(data){
 			// 加载内容
@@ -36,7 +36,7 @@ $(function () {
 		var id = $('#listBG').webmis('getID');
 		if(!id){return false;}
 		// 创建窗口
-		$.webmis.win({title:'编辑',width:620,height:480});
+		$.webmis.win({title:'编辑',width:620,height:450});
 		// 内容
 		$.post($base_url+'SysAdmins/edit',{'id':id},function(data){
 			// 加载内容

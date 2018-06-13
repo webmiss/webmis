@@ -61,7 +61,7 @@ em{color: #6FB737; font-family: 'iconfont'; font-style: normal; font-size: 16px;
 .webmis_win_tabs a:hover{color: #6FB737;}
 .webmis_win_tabs .an{background-color: #6FB737; color: #FFF;}
 .webmis_win_tabs .an:hover{color: #FFF;}
-.webmis_win_ct{width: 100%; height: calc(100% - 34px); overflow-y: auto; border-top: #DADCDF 1px solid;}
+.webmis_win_ct{width: 100%; height: calc(100% - 34px); overflow-y: auto;}
 .webmis_win_load{height: 100%; background: url('images/onLoad.gif') no-repeat center center;}
 
 /* Validform */

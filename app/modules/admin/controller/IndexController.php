@@ -67,7 +67,7 @@ class IndexController extends Controller{
 	/* 验证码 */
 	function vcodeAction(){
 		// 验证码
-		Images::getCode(80,25);
+		Images::getCode(90,36);
 	}
 
 }
