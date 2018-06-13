@@ -19,7 +19,7 @@ $(function () {
 	/* 添加 */
 	$('#ico-add').click(function(){
 		// 创建窗口
-		$.webmis.win({title:'添加',width:620,height:480});
+		$.webmis.win({title:'添加',width:620,height:460});
 		// ajax
 		$.get($base_url+'SysMenus/add',function(data){
 			// 加载内容
@@ -38,7 +38,7 @@ $(function () {
 		var id = $('#listBG').webmis('getID');
 		if(!id){return false;}
 		// 创建窗口
-		$.webmis.win({title:'编辑',width:620,height:480});
+		$.webmis.win({title:'编辑',width:620,height:460});
 		// 内容
 		$.post($base_url+'SysMenus/edit',{'id':id},function(data){
 			// 加载内容
