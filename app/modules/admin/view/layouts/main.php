@@ -6,8 +6,6 @@
 	<title>管理员控制台</title>
 	<link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<meta name="format-detection" content="telephone=no">
-	<meta name="msapplication-tap-highlight" content="no">
 	<link rel="stylesheet" type="text/css" href="/webmis/webmis.css" />
 	<link rel="stylesheet" type="text/css" href="/themes/admin/main.css" />
 	<script type="text/javascript" src="/webmis/plugin/jquery/jquery-3.min.js"></script>
@@ -74,11 +72,11 @@ if(isset($val1->menus)){foreach ($val1->menus as $val2){
 		<div class="ct_left_bg"></div>
 		<div class="ct_right">
 			<div class="ct_top"></div>
-<?php require_once self::$getContent; ?>
+<?php include self::$getContent; ?>
 
 		</div>
 	</div>
 <div id="BaseURL" style="display: none;"><?php echo self::getUrl();?></div>
-<div id="GetUrl" style="display: none;"><?php echo @$getUrl;?></div>
+<div id="GetUrl" style="display: none;"><?php echo isset($getUrl)?$getUrl:'';?></div>
 </body>
 </html>
