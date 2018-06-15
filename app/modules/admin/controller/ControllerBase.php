@@ -17,8 +17,8 @@ class ControllerBase extends Controller{
 	function __construct(){
 		// 是否登录
 		$admin = @$_SESSION['Admin'];
-		if(!$admin || !$admin['logged_in'] || $admin['ltime']<time()){
-			$this->redirect('index/loginOut');
+		if(!$admin || !$admin['login'] || $admin['ltime']<time()){
+			return self::redirect('index/logout');
 		}else{
 			$_SESSION['Admin']['ltime'] = time()+1800;
 		}
@@ -32,7 +32,7 @@ class ControllerBase extends Controller{
 		// 判断权限
 		$mid = SysMenu::findfirst(['where'=>'url="'.CONTROLLER.'"','field'=>'id']);
 		if(!isset($data[$mid->id])){
-			$this->redirect('index/loginOut');
+			$this->redirect('index/logout');
 		}
 		// 赋值权限
 		self::$perm = $data;

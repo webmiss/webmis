@@ -45,7 +45,7 @@ foreach($Menus['Data'] as $val){
 						职务: <?php echo $Uinfo['position'];?>
 					</span>
 					<a href="" class="btop">修改密码</a>
-					<a href="<?php echo self::getUrl('index/loginOut');?>" class="btop center">注销</a>
+					<a href="<?php echo self::getUrl('index/logout');?>" class="btop center">注销</a>
 				</span>
 			</span>
 		</div>

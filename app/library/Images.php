@@ -1,10 +1,10 @@
 <?php
 
+namespace app\library;
+
 /**
 * 图像处理类
 */
-
-namespace app\library;
 
 class Images{
 
@@ -14,7 +14,7 @@ class Images{
 	* @param2 int height - 高度
 	* @param3 string fonts  - 字体路径
 	*/
-	static function getCode($width=80, $height=28, $fonts=__DIR__.'/../../public/upload/fonts/ariblk.ttf'){
+	static function getCode($width=80, $height=28, $fonts='upload/fonts/ariblk.ttf'){
 		// 清空当前缓冲区的数据
 		ob_clean();
 		// 创建图片
