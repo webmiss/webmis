@@ -10,7 +10,7 @@ class Page{
 	/* 分页 */
 	static function get($config=[]){
 		// 必须参数
-		if(!isset($config['model'])){die('请传入模型');}
+		if(!isset($config['model']))die('请传入模型');
 		// 命名空间
 		$namespace = isset($config['namespace'])?$config['namespace']:'app\\modules\\'.MODULE.'\\model\\';
 		$config['model'] = $namespace.$config['model'];
@@ -21,17 +21,13 @@ class Page{
 		$limit = isset($config['limit'])?$config['limit']:15;
 		$getUrl = isset($config['getUrl'])?$config['getUrl']:'';
 		// Page
+		$page = !isset($_GET['page'])||empty(intval($_GET['page']))||$_GET['page']<0?1:intval($_GET['page']);
 		$rows = $config['model']::getNumRows($where);
-		$page = empty($_GET['page'])?1:$_GET['page'];
-		// 计算页数
 		$page_count = ceil($rows/$limit);
-		if($page >= $page_count){
-			$page = $page_count;
-		}
+		$page = $page>=$page_count?$page_count:$page;
 		// 数据
 		$start=$limit*($page-1);
 		$data = $config['model']::find(['where'=>$where,'field'=>$field,'order'=>$order,'limit'=>$start.','.$limit]);
-
 		// 分页菜单
 		$html = '';
 		if($page==1 || $page==0){
@@ -49,7 +45,6 @@ class Page{
 			$html .= '<a href="'.self::getUrl(CONTROLLER.'?search&page='.$page_count.$getUrl).'">末页</a>';
 		}
 		$html .= '第'.$page.'/'.$page_count.'页, 共'.$rows.'条';
-
 		// 结果
 		return array('data'=>$data,'page'=>$html);
 	}

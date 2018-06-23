@@ -16,6 +16,17 @@ AllowOverride All
 Require all granted
 Options Indexes FollowSymLinks
 ```
+public/.htaccess
+```bash
+AddDefaultCharset UTF-8
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php?_url=/$1 [QSA,L]
+</IfModule>
+```
 
 ### 2) Nginx
 ```bash

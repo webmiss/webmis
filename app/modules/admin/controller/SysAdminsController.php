@@ -14,7 +14,6 @@ class SysAdminsController extends ControllerBase{
 		// 分页
 		if(isset($_GET['search'])){
 			$like = Page::where();
-			self::setVar('getUrl', $like['search']);
 			// 生成搜索条件
 			$where = '';
 			foreach ($like['data'] as $key => $val){
@@ -22,6 +21,7 @@ class SysAdminsController extends ControllerBase{
 			}
 			$where = rtrim($where,'AND ');
 			$getUrl = $like['getUrl'];
+			self::setVar('getUrl', $like['search']);
 		}else{
 			$where = '';
 			$getUrl = '';
@@ -38,18 +38,18 @@ class SysAdminsController extends ControllerBase{
 		self::setVar('Menus',$this->getMenus());
 
 		// 传递参数
-		self::setVar('LoadJS', array('system/sys_admin.js'));
+		self::setVar('LoadJS', ['system/sys_admin.js']);
 		return $this->setTemplate('main','system/admin/index');
 	}
 
 	/* 搜索 */
 	function searchAction(){
-		return $this->view('system/admin/sea');
+		return self::view('system/admin/sea');
 	}
 
 	/* 添加 */
 	function addAction(){
-		return $this->view('system/admin/add');
+		return self::view('system/admin/add');
 	}
 	function addDataAction(){
 		// 是否有数据提交
@@ -80,13 +80,13 @@ class SysAdminsController extends ControllerBase{
 				'field'=>'id'
 			]);
 			if($isNull){
-				return json_encode(array('state'=>'n','msg'=>'该用户已经存在！'));
+				return json_encode(['state'=>'n','msg'=>'该用户已经存在！']);
 			}
 			// 返回信息
 			if(SysAdmin::add($data)){
-				return json_encode(array('state'=>'y','url'=>'SysAdmins','msg'=>'添加成功！'));
+				return json_encode(['state'=>'y','url'=>'SysAdmins','msg'=>'添加成功！']);
 			}else{
-				return json_encode(array('state'=>'n','msg'=>'添加失败！'));
+				return json_encode(['state'=>'n','msg'=>'添加失败！']);
 			}
 		}
 	}
@@ -95,7 +95,7 @@ class SysAdminsController extends ControllerBase{
 	function editAction(){
 		// 视图
 		self::setVar('edit',SysAdmin::findfirst(['where'=>'id='.$_POST['id']]));
-		return $this->view('system/admin/edit');
+		return self::view('system/admin/edit');
 	}
 	function editDataAction(){
 		// 是否有数据提交
@@ -118,21 +118,21 @@ class SysAdminsController extends ControllerBase{
 				if($isNull){
 					$data['password'] = md5($_POST['passwd']);
 				}else{
-					return json_encode(array('state'=>'n','msg'=>'原密码错误！'));
+					return json_encode(['state'=>'n','msg'=>'原密码错误！']);
 				}
 			}
 			// 返回信息
 			if(SysAdmin::update($data,'id='.$_POST['id'])){
-				return json_encode(array('state'=>'y','url'=>'SysAdmins','msg'=>'编辑成功！'));
+				return json_encode(['state'=>'y','url'=>'SysAdmins','msg'=>'编辑成功！']);
 			}else{
-				return json_encode(array('state'=>'n','msg'=>'编辑失败！'));
+				return json_encode(['state'=>'n','msg'=>'编辑失败！']);
 			}
 		}
 	}
 
 	/* 删除 */
 	function delAction(){
-		return $this->view('system/admin/del');
+		return self::view('system/admin/del');
 	}
 	function delDataAction(){
 		// 是否有数据提交
@@ -141,16 +141,16 @@ class SysAdminsController extends ControllerBase{
 			$id = implode(',',json_decode($_POST['id']));
 			// 返回信息
 			if(SysAdmin::del('id IN ('.$id.')')===true){
-				return json_encode(array('state'=>'y','url'=>'SysAdmins','msg'=>'删除成功！'));
+				return json_encode(['state'=>'y','url'=>'SysAdmins','msg'=>'删除成功！']);
 			}else{
-				return json_encode(array('state'=>'n','msg'=>'删除失败！'));
+				return json_encode(['state'=>'n','msg'=>'删除失败！']);
 			}		
 		}
 	}
 
 	/* 审核 */
 	function auditAction(){
-		return $this->view('system/admin/audit');
+		return self::view('system/admin/audit');
 	}
 	function auditDataAction(){
 		// 是否有数据提交
@@ -158,9 +158,9 @@ class SysAdminsController extends ControllerBase{
 			// 获取ID
 			$id = implode(',',json_decode($_POST['id']));
 			if(SysAdmin::update(['state'=>$_POST['state']],'id IN ('.$id.')')){
-				return json_encode(array('state'=>'y','url'=>'SysAdmins','msg'=>'审核成功！'));
+				return json_encode(['state'=>'y','url'=>'SysAdmins','msg'=>'审核成功！']);
 			}else{
-				return json_encode(array('state'=>'n','msg'=>'审核失败！'));
+				return json_encode(['state'=>'n','msg'=>'审核失败！']);
 			}
 		}
 	}
@@ -197,16 +197,16 @@ class SysAdminsController extends ControllerBase{
 		self::setVar('permArr',$permArr);
 		self::setVar('Perm',SysMenuAction::find(['field'=>'name,perm']));
 		self::setVar('Menus',$this->Menus());
-		return $this->view('system/admin/perm');
+		return self::view('system/admin/perm');
 	}
 	function permDataAction(){
 		// 是否有数据提交
 		if($_POST){
 			// 返回信息
 			if(SysAdmin::update(['perm'=>trim($_POST['perm'])],'id='.$_POST['id'])){
-				return json_encode(array('state'=>'y','url'=>'SysAdmins'));
+				return json_encode(['state'=>'y','url'=>'SysAdmins']);
 			}else{
-				return json_encode(array('state'=>'n','msg'=>'权限编辑失败！'));
+				return json_encode(['state'=>'n','msg'=>'权限编辑失败！']);
 			}
 		}
 	}

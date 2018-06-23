@@ -11,7 +11,7 @@
 	<script type="text/javascript" src="/webmis/plugin/jquery/jquery-3.min.js"></script>
 	<script type="text/javascript" src="/webmis/jquery.webmis.js"></script>
 	<script type="text/javascript" src="/themes/admin/main.js"></script>
-<?php if(@$LoadJS){foreach($LoadJS as $val){?>
+<?php if(isset($LoadJS)){foreach($LoadJS as $val){?>
 	<script type="text/javascript" src="/themes/admin/js/<?php echo $val;?>"></script>
 <?php }}?>
 </head>

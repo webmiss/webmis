@@ -11,7 +11,6 @@ class SysMenusActionController extends ControllerBase{
 		// 分页
 		if(isset($_GET['search'])){
 			$like = Page::where();
-			self::setVar('getUrl', $like['search']);
 			// 生成搜索条件
 			$where = '';
 			foreach ($like['data'] as $key => $val){
@@ -19,6 +18,7 @@ class SysMenusActionController extends ControllerBase{
 			}
 			$where = rtrim($where,'AND ');
 			$getUrl = $like['getUrl'];
+			self::setVar('getUrl', $like['search']);
 		}else{
 			$where = '';
 			$getUrl = '';
@@ -34,7 +34,7 @@ class SysMenusActionController extends ControllerBase{
 		self::setVar('Menus',self::getMenus());
 
 		// 传递参数
-		self::setVar('LoadJS', array('system/sys_menus_action.js'));
+		self::setVar('LoadJS', ['system/sys_menus_action.js']);
 		return self::setTemplate('main','system/action/index');
 	}
 	/* 搜索 */
@@ -56,9 +56,9 @@ class SysMenusActionController extends ControllerBase{
 			];
 			// 返回信息
 			if(SysMenuAction::add($data)){
-				return json_encode(array('state'=>'y','url'=>'SysMenusAction','msg'=>'添加成功！'));
+				return json_encode(['state'=>'y','url'=>'SysMenusAction','msg'=>'添加成功！']);
 			}else{
-				return json_encode(array('state'=>'n','msg'=>'添加失败！'));
+				return json_encode(['state'=>'n','msg'=>'添加失败！']);
 			}
 		}
 	}
@@ -79,9 +79,9 @@ class SysMenusActionController extends ControllerBase{
 			];
 			// 返回信息
 			if(SysMenuAction::update($data,'id='.$_POST['id'])){
-				return json_encode(array('state'=>'y','url'=>'SysMenusAction','msg'=>'编辑成功！'));
+				return json_encode(['state'=>'y','url'=>'SysMenusAction','msg'=>'编辑成功！']);
 			}else{
-				return json_encode(array('state'=>'n','msg'=>'编辑失败！'));
+				return json_encode(['state'=>'n','msg'=>'编辑失败！']);
 			}
 		}
 	}
@@ -96,9 +96,9 @@ class SysMenusActionController extends ControllerBase{
 			$id = implode(',',json_decode($_POST['id']));
 			// 实例化
 			if(SysMenuAction::del('id IN ('.$id.')')===true){
-				return json_encode(array('state'=>'y','url'=>'SysMenusAction','msg'=>'删除成功！'));
+				return json_encode(['state'=>'y','url'=>'SysMenusAction','msg'=>'删除成功！']);
 			}else{
-				return json_encode(array('state'=>'n','msg'=>'删除失败！'));
+				return json_encode(['state'=>'n','msg'=>'删除失败！']);
 			}		
 		}
 	}

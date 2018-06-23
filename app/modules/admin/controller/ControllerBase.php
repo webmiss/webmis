@@ -11,12 +11,13 @@ use app\modules\admin\model\SysMenuAction;
 class ControllerBase extends Controller{
 
 	static private $perm = '';
+	static private $mid=[];
 	static private $cid=[];
 
 	/* 构造函数 */
 	function __construct(){
 		// 是否登录
-		$admin = @$_SESSION['Admin'];
+		$admin = isset($_SESSION['Admin'])?$_SESSION['Admin']:'';
 		if(!$admin || !$admin['login'] || $admin['ltime']<time()){
 			return self::redirect('index/logout');
 		}else{
@@ -30,30 +31,29 @@ class ControllerBase extends Controller{
 			$data[$a[0]] = $a[1];
 		}
 		// 判断权限
-		$mid = SysMenu::findfirst(['where'=>'url="'.CONTROLLER.'"','field'=>'id']);
-		if(!isset($data[$mid->id])){
-			$this->redirect('index/logout');
+		self::$mid = SysMenu::findfirst(['where'=>'url="'.CONTROLLER.'"','field'=>'id,fid,title']);
+		if(!isset($data[self::$mid->id])){
+			return self::redirect('index/logout');
 		}
 		// 赋值权限
 		self::$perm = $data;
 		// 用户信息
-		$this->setVar('Uinfo',@$_SESSION['Admin']);
+		$this->setVar('Uinfo',$admin);
 	}
 
 	/* 获取菜单 */
 	static function getMenus(){
 		// CID
-		$C = SysMenu::findfirst(['where'=>'url="'.CONTROLLER.'"','field'=>'id,fid,title']);
-		self::$cid[] = $C->id;
-		self::getCid($C->fid);
+		self::$cid[] = self::$mid->id;
+		self::getCid(self::$mid->fid);
 		krsort(self::$cid);
 		self::$cid = array_values(self::$cid);
 		// 数据
 		return [
-			'Ctitle'=>$C->title,
+			'Ctitle'=>self::$mid->title,
 			'CID'=>self::$cid,
 			// 获取菜单动作
-			'action'=>self::actionMenus(self::$perm[end(self::$cid)]),
+			'action'=>self::actionMenus(self::$perm[self::$mid->id]),
 			'Data'=>self::getMenu()
 		];
 	}
