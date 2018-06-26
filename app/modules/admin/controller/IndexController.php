@@ -6,6 +6,7 @@ use framework\Controller;
 use app\library\Images;
 
 use app\modules\admin\model\SysAdmin;
+use app\modules\admin\model\Test;
 
 class IndexController extends Controller{
 
