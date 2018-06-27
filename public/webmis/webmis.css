@@ -57,7 +57,7 @@ em{color: #6FB737; font-family: 'iconfont'; font-style: normal; font-size: 16px;
 .webmis_win_title em{cursor: pointer; position: absolute; right: 0; top: 0; height: 32px; line-height: 32px; padding: 0 10px; color: #666; background-color: #FFF; border-radius: 3px;}
 .webmis_win_title em:hover{color: #FF6600;}
 .webmis_win_title em:before {content: "\e6a9";}
-.webmis_win_tabs a{display:  inline-block; cursor: pointer; padding: 0 10px; background-color: #F2F4F6; color: #333; border-left: #CCC 1px solid; box-shadow: 1px 0 0 #CCC;}
+.webmis_win_tabs a{display:  inline-block; cursor: pointer; padding: 0 10px; background-color: #F2F4F6; color: #333; margin-right: 2px;}
 .webmis_win_tabs a:hover{color: #6FB737;}
 .webmis_win_tabs .an{background-color: #6FB737; color: #FFF;}
 .webmis_win_tabs .an:hover{color: #FFF;}
