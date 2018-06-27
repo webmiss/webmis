@@ -148,6 +148,8 @@ class Model {
 			];
 			// 链接
 			self::$conn = new \PDO(self::$config['type'].':host='.self::$config['host'].';dbname='.self::$config['db'],self::$config['uname'],self::$config['passwd'],$option);
+			// 设置编码
+			self::$conn->exec('SET NAMES "'.self::$config['charset'].'";');
 		} catch (\PDOException $e) {
 			die('数据库：'.$e->getMessage());
 		}
