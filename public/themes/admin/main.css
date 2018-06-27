@@ -34,7 +34,7 @@ label.error em{float: left; padding-left: 5px;}
 .autocomplete-suggestions div:hover{background-color: #F4F5F9;}
 
 /* login */
-.login_ct{position: absolute; z-index: 10; width: 360px; height: 240px; margin-left: -180px; margin-top: -100px; background: url(images/bg.png) rgba(255,255,255,0.7); box-shadow: 0 0 12px #000; top: 50%; left: 50%; border-radius: 6px;}
+.login_ct{position: absolute; z-index: 10; width: 340px; height: 240px; margin-left: -170px; margin-top: -100px; background: url(images/bg.png) rgba(255,255,255,0.7); box-shadow: 0 0 12px #000; top: 50%; left: 50%; border-radius: 6px;}
 .login_ct h1{position: absolute; width: 100%; height: 36px; line-height: 36px; font-size: 60px; text-align: center; color: #FFF; margin-top: -60px;}
 .login_list{padding: 20px 30px; height: calc(100% - 40px);}
 .login_list li{padding: 3px 0;}
