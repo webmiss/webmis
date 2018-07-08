@@ -5,7 +5,7 @@ Admin: http://mvc.webmis.vip/admin/<br>
 uanme: admin  passwd: admin
 
 # 安装
-## Composer方式
+### 1) Composer方式
 ``` bash
 composer create-project webmiss/webmis=1.0.* webmis --prefer-dist
 ```
