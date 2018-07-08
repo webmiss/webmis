@@ -1,0 +1,22 @@
+{
+    "name": "webmiss/webmis",
+    "description": "The Webmis Project",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "webmis",
+            "email": "klingsoul@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^5.4 || ^7.0",
+        "webmiss/framework":"^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}
