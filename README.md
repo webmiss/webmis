@@ -17,7 +17,7 @@ composer create-project webmiss/webmis=1.0.* mvc
     }
 }
 ```
-### 导入数据库
+### 2) 导入数据库
 ``` bash
 public/db/mvc.sql
 ```

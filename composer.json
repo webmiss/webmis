@@ -11,7 +11,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": "^7.1",
+        "php": ">=7.1.3",
         "webmiss/framework":"^1.0"
     },
     "autoload": {
