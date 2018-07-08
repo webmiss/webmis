@@ -1,5 +1,5 @@
 # WebMIS
-WebMIS 是轻量级HMVC高性能面向对象框架！<br>
+WebMIS是轻量级、高性能、面向对象的HMVC框架！<br>
 Home: http://mvc.webmis.vip/<br>
 Admin: http://mvc.webmis.vip/admin/<br>
 uanme: admin  passwd: admin
