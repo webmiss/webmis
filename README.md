@@ -7,22 +7,20 @@ uanme: admin  passwd: admin
 # 安装
 ### 1) Composer方式
 ``` bash
-composer create-project webmiss/webmis=1.0.* webmis --prefer-dist
+composer create-project webmiss/webmis=1.0.* mvc
 ```
 或者 composer.json
 ``` bash
 {
     "require": {
-        "webmiss/webmis":"^1.0"
+        "webmiss/webmis":"1.0.*"
     }
 }
 ```
-
-# 导入数据库
+### 导入数据库
 ``` bash
 public/db/mvc.sql
 ```
-
 
 # 美化URL
 ### 1) Apache
