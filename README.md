@@ -1,15 +1,30 @@
 # WebMIS
-WebMIS is just a development idea.<br>
+WebMIS 是轻量级HMVC高性能面向对象框架！<br>
 Home: http://mvc.webmis.vip/<br>
 Admin: http://mvc.webmis.vip/admin/<br>
 uanme: admin  passwd: admin
 
-# Install
-```bash
-Database : public/db/mvc.sql
+# 安装
+## Composer方式
+``` bash
+composer create-project webmiss/webmis=1.0.* webmis --prefer-dist
+```
+或者 composer.json
+``` bash
+{
+    "require": {
+        "webmiss/webmis":"^1.0"
+    }
+}
 ```
 
-# Configuration
+# 导入数据库
+``` bash
+public/db/mvc.sql
+```
+
+
+# 美化URL
 ### 1) Apache
 ```bash
 AllowOverride All
