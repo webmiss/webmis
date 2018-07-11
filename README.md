@@ -5,21 +5,17 @@ Admin: http://mvc.webmis.vip/admin/<br>
 uanme: admin  passwd: admin
 
 # 安装
-### 1) Composer方式
+### 1) 克隆项目
 ``` bash
-composer create-project webmiss/webmis=1.0.* mvc
-```
-或者 composer.json
-``` bash
-{
-    "require": {
-        "webmiss/webmis":"1.0.*"
-    }
-}
+git clone https://github.com/webmiss/webmis mvc
 ```
 ### 2) 导入数据库
 ``` bash
 public/db/mvc.sql
+```
+### 3) 更新项目
+``` bash
+composer update
 ```
 
 # 美化URL
