@@ -5,9 +5,9 @@ Admin: http://mvc.webmis.vip/admin/<br>
 uanme: admin  passwd: admin
 
 # 安装
-### 1) 克隆项目
+### 1) 创建项目
 ``` bash
-git clone https://github.com/webmiss/webmis mvc
+composer create-project webmiss/webmis mvc
 ```
 ### 2) 导入数据库
 ``` bash
